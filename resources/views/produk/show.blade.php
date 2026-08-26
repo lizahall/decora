@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-shop-layout title="Detail Produk">
     <div class="max-w-3xl mx-auto py-8 px-4">
 
         @if (session('error'))
@@ -50,4 +50,4 @@
         @endauth
 
     </div>
-</x-guest-layout>
+</x-shop-layout>

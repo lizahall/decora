@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-shop-layout title="Katalog Produk">
     <div class="max-w-6xl mx-auto py-8 px-4">
         <h1 class="text-2xl font-bold mb-6">Katalog Produk DECORA</h1>
 
@@ -17,4 +17,4 @@
 
         <div class="mt-6">{{ $produk->links() }}</div>
     </div>
-</x-guest-layout>
+</x-shop-layout>

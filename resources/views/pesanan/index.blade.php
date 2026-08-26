@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-shop-layout title="Riwayat Pesanan">
     <div class="max-w-3xl mx-auto py-8 px-4">
         <h1 class="text-2xl font-bold mb-6">Riwayat Pesanan</h1>
 
@@ -29,4 +29,4 @@
 
         <div class="mt-4">{{ $pesanan->links() }}</div>
     </div>
-</x-guest-layout>
+</x-shop-layout>

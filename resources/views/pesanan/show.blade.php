@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-shop-layout title="Detail Pesanan">
     <div class="max-w-3xl mx-auto py-8 px-4">
 
         @if (session('success'))
@@ -32,4 +32,4 @@
 
         <a href="{{ route('produk.index') }}" class="text-blue-600 text-sm underline">Kembali ke Katalog</a>
     </div>
-</x-guest-layout>
+</x-shop-layout>

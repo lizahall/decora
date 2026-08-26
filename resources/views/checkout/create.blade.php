@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-shop-layout title="Checkout">
     <div class="max-w-3xl mx-auto py-8 px-4">
         <h1 class="text-2xl font-bold mb-6">Checkout</h1>
 
@@ -64,4 +64,4 @@
             </button>
         </form>
     </div>
-</x-guest-layout>
+</x-shop-layout>
