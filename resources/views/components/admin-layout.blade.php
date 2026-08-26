@@ -17,7 +17,8 @@
             <nav class="flex-1 py-4 text-sm">
                 <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-100 {{ request()->routeIs('admin.dashboard') ? 'bg-gray-100 font-semibold' : '' }}">Dashboard</a>
                 <a href="{{ route('admin.produk.index') }}" class="block px-4 py-2 hover:bg-gray-100 {{ request()->routeIs('admin.produk.*') ? 'bg-gray-100 font-semibold' : '' }}">Data Produk</a>
-                {{-- Tambahkan link Data User, Data Pesanan, Data Admin, Laporan Penjualan di fase berikutnya --}}
+                <a href="{{ route('admin.pesanan.index') }}" class="block px-4 py-2 hover:bg-gray-100 {{ request()->routeIs('admin.pesanan.*') ? 'bg-gray-100 font-semibold' : '' }}">Data Pesanan</a>
+                {{-- Tambahkan link Data User, Data Admin, Laporan Penjualan di Fase 7 --}}
             </nav>
         </aside>
 

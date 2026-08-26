@@ -8,6 +8,7 @@ use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\Admin\ProdukController as AdminProdukController;
+use App\Http\Controllers\Admin\PesananController as AdminPesananController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,7 +27,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         })->name('dashboard');
 
         Route::resource('produk', AdminProdukController::class);
-        // Route admin lain (kelola user, kelola pesanan, laporan) ditambah di Fase 6-7 di sini
+
+        Route::get('/pesanan', [AdminPesananController::class, 'index'])->name('pesanan.index');
+        Route::get('/pesanan/{pesanan}', [AdminPesananController::class, 'show'])->name('pesanan.show');
+        Route::patch('/pesanan/{pesanan}/status', [AdminPesananController::class, 'updateStatus'])->name('pesanan.updateStatus');
+
+        // Route admin lain (kelola user, kelola admin, laporan) ditambah di Fase 7
     });
 });
 
@@ -52,6 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
+    Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
     Route::get('/pesanan/{pesanan}', [PesananController::class, 'show'])->name('pesanan.show');
 });
 
