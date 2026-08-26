@@ -18,7 +18,9 @@
                 <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-100 {{ request()->routeIs('admin.dashboard') ? 'bg-gray-100 font-semibold' : '' }}">Dashboard</a>
                 <a href="{{ route('admin.produk.index') }}" class="block px-4 py-2 hover:bg-gray-100 {{ request()->routeIs('admin.produk.*') ? 'bg-gray-100 font-semibold' : '' }}">Data Produk</a>
                 <a href="{{ route('admin.pesanan.index') }}" class="block px-4 py-2 hover:bg-gray-100 {{ request()->routeIs('admin.pesanan.*') ? 'bg-gray-100 font-semibold' : '' }}">Data Pesanan</a>
-                {{-- Tambahkan link Data User, Data Admin, Laporan Penjualan di Fase 7 --}}
+                <a href="{{ route('admin.user.index') }}" class="block px-4 py-2 hover:bg-gray-100 {{ request()->routeIs('admin.user.*') ? 'bg-gray-100 font-semibold' : '' }}">Data User</a>
+                <a href="{{ route('admin.akun.index') }}" class="block px-4 py-2 hover:bg-gray-100 {{ request()->routeIs('admin.akun.*') ? 'bg-gray-100 font-semibold' : '' }}">Data Admin</a>
+                <a href="{{ route('admin.laporan.index') }}" class="block px-4 py-2 hover:bg-gray-100 {{ request()->routeIs('admin.laporan.*') ? 'bg-gray-100 font-semibold' : '' }}">Laporan Penjualan</a>
             </nav>
         </aside>
 

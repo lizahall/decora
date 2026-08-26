@@ -9,6 +9,9 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\Admin\ProdukController as AdminProdukController;
 use App\Http\Controllers\Admin\PesananController as AdminPesananController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\AdminController as AdminAkunController;
+use App\Http\Controllers\Admin\LaporanController as AdminLaporanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,7 +35,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/pesanan/{pesanan}', [AdminPesananController::class, 'show'])->name('pesanan.show');
         Route::patch('/pesanan/{pesanan}/status', [AdminPesananController::class, 'updateStatus'])->name('pesanan.updateStatus');
 
-        // Route admin lain (kelola user, kelola admin, laporan) ditambah di Fase 7
+        Route::get('/user', [AdminUserController::class, 'index'])->name('user.index');
+        Route::delete('/user/{user}', [AdminUserController::class, 'destroy'])->name('user.destroy');
+
+        Route::resource('akun', AdminAkunController::class)->parameters(['akun' => 'akun'])->except(['show']);
+
+        Route::get('/laporan', [AdminLaporanController::class, 'index'])->name('laporan.index');
     });
 });
 
