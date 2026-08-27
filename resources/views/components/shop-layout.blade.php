@@ -6,41 +6,57 @@
     <title>{{ $title ?? 'DECORA' }}</title>
     @vite('resources/css/app.css')
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body class="bg-decora-cream min-h-screen flex flex-col font-sans text-decora-text">
 
-    <nav class="bg-white border-b border-gray-300">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="{{ route('home') }}" class="font-bold text-lg">DECORA</a>
+    <nav class="bg-white/80 backdrop-blur border-b border-decora-cream-dark sticky top-0 z-20">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-6">
 
-            <div class="hidden sm:flex items-center gap-6 text-sm">
-                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'font-semibold' : 'text-gray-600' }}">Beranda</a>
-                <a href="{{ route('produk.index') }}" class="{{ request()->routeIs('produk.*') ? 'font-semibold' : 'text-gray-600' }}">Katalog</a>
+            <a href="{{ route('home') }}" class="font-bold text-xl text-decora-brown tracking-wide shrink-0">
+                DECORA
+            </a>
+
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-decora-brown' : 'text-decora-text/70 hover:text-decora-brown' }}">Beranda</a>
+                <a href="{{ route('produk.index') }}" class="{{ request()->routeIs('produk.*') ? 'text-decora-brown' : 'text-decora-text/70 hover:text-decora-brown' }}">Katalog</a>
             </div>
 
-            <div class="flex items-center gap-4 text-sm">
+            {{-- Search bar --}}
+            <form action="{{ route('produk.index') }}" method="GET" class="hidden sm:block flex-1 max-w-xs">
+                <input
+                    type="text"
+                    name="cari"
+                    value="{{ request('cari') }}"
+                    placeholder="Cari produk..."
+                    class="w-full text-sm rounded-full border-decora-cream-dark bg-decora-cream focus:bg-white focus:ring-decora-sage focus:border-decora-sage"
+                >
+            </form>
+
+            <div class="flex items-center gap-4 text-sm shrink-0">
                 @auth
-                    <a href="{{ route('keranjang.index') }}" class="relative text-gray-600">
-                        Keranjang
+                    <a href="{{ route('keranjang.index') }}" class="relative text-decora-text/70 hover:text-decora-brown" title="Keranjang">
+                        🛒
                         @php $jumlahKeranjang = auth()->user()->keranjang()->sum('jumlah'); @endphp
                         @if ($jumlahKeranjang > 0)
-                            <span class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{ $jumlahKeranjang }}</span>
+                            <span class="absolute -top-2 -right-2 bg-decora-brown text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">{{ $jumlahKeranjang }}</span>
                         @endif
                     </a>
-                    <a href="{{ route('pesanan.index') }}" class="text-gray-600">Riwayat Pesanan</a>
 
                     <div class="relative group">
-                        <button class="font-medium">{{ auth()->user()->nama }} ▾</button>
-                        <div class="absolute right-0 mt-1 w-40 bg-white border border-gray-300 rounded shadow-sm hidden group-hover:block z-10">
-                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-gray-50">Edit Profil</a>
+                        <button class="font-medium text-decora-text/80 hover:text-decora-brown flex items-center gap-1">
+                            {{ auth()->user()->nama }} <span class="text-xs">▾</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-44 bg-white border border-decora-cream-dark rounded-lg shadow-lg hidden group-hover:block z-10 overflow-hidden">
+                            <a href="{{ route('pesanan.index') }}" class="block px-4 py-2 hover:bg-decora-cream">Riwayat Pesanan</a>
+                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-decora-cream">Edit Profil</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-red-600">Logout</button>
+                                <button type="submit" class="w-full text-left px-4 py-2 hover:bg-decora-cream text-red-600">Logout</button>
                             </form>
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('login') }}" class="text-gray-600">Login</a>
-                    <a href="{{ route('register') }}" class="font-semibold">Daftar</a>
+                    <a href="{{ route('login') }}" class="text-decora-text/70 hover:text-decora-brown">Login</a>
+                    <x-button variant="primary" class="!px-4 !py-1.5" onclick="window.location='{{ route('register') }}'">Daftar</x-button>
                 @endauth
             </div>
         </div>
@@ -50,8 +66,16 @@
         {{ $slot }}
     </main>
 
-    <footer class="bg-white border-t border-gray-300 py-4 text-center text-xs text-gray-500">
-        &copy; {{ date('Y') }} DECORA — Furniture & Dekorasi Rumah
+    <footer class="bg-decora-brown text-white mt-auto">
+        <div class="max-w-6xl mx-auto px-4 py-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm">
+            <span>🛡️ Aman &amp; Terpercaya</span>
+            <span>📦 Produk Berkualitas</span>
+            <span>💳 Pembayaran Aman</span>
+            <span>🚚 Gratis Ongkir</span>
+        </div>
+        <div class="text-center text-xs text-white/70 pb-4">
+            &copy; {{ date('Y') }} DECORA — Furniture &amp; Dekorasi Rumah
+        </div>
     </footer>
 
 </body>
