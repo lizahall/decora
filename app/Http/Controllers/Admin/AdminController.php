@@ -68,7 +68,6 @@ class AdminController extends Controller
 
     public function destroy(Admin $akun)
     {
-        // SEKENARIO GAGAL: tidak bisa hapus akun sendiri yang sedang login
         if ($akun->id === Auth::guard('admin')->id()) {
             return back()->with('error', 'Tidak bisa menghapus akun sendiri yang sedang login.');
         }
