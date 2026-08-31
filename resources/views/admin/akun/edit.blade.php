@@ -1,43 +1,36 @@
 <x-admin-layout title="Edit Admin">
 
-    <h1 class="text-xl font-bold mb-4">Edit Akun Admin</h1>
+    <h1 class="text-xl font-bold text-decora-text mb-5">Edit Akun Admin</h1>
 
     @if ($errors->any())
-        <div class="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded p-2">
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
+        <div class="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
+            @foreach ($errors->all() as $error)<p>{{ $error }}</p>@endforeach
         </div>
     @endif
 
-    <form method="POST" action="{{ route('admin.akun.update', $admin->id) }}" class="bg-white border border-gray-300 rounded p-6 max-w-lg space-y-4">
+    <form method="POST" action="{{ route('admin.akun.update', $admin->id) }}" class="bg-white border border-decora-cream-dark rounded-xl p-6 max-w-lg space-y-4">
         @csrf
         @method('PUT')
-
         <div>
-            <label class="block text-sm font-medium mb-1">Nama</label>
-            <input type="text" name="nama" value="{{ old('nama', $admin->nama) }}" class="w-full border border-gray-400 rounded-sm px-3 py-2">
+            <x-input-label value="Nama" />
+            <x-text-input type="text" name="nama" value="{{ old('nama', $admin->nama) }}" />
         </div>
-
         <div>
-            <label class="block text-sm font-medium mb-1">Email</label>
-            <input type="email" name="email" value="{{ old('email', $admin->email) }}" class="w-full border border-gray-400 rounded-sm px-3 py-2">
+            <x-input-label value="Email" />
+            <x-text-input type="email" name="email" value="{{ old('email', $admin->email) }}" />
         </div>
-
         <div>
-            <label class="block text-sm font-medium mb-1">Password Baru (opsional)</label>
-            <input type="password" name="password" class="w-full border border-gray-400 rounded-sm px-3 py-2">
-            <p class="text-xs text-gray-500 mt-1">Kosongkan jika tidak ingin mengubah password.</p>
+            <x-input-label value="Password Baru (opsional)" />
+            <x-text-input type="password" name="password" />
+            <p class="text-xs text-decora-text/50 mt-1">Kosongkan jika tidak ingin mengubah password.</p>
         </div>
-
         <div>
-            <label class="block text-sm font-medium mb-1">Konfirmasi Password Baru</label>
-            <input type="password" name="password_confirmation" class="w-full border border-gray-400 rounded-sm px-3 py-2">
+            <x-input-label value="Konfirmasi Password Baru" />
+            <x-text-input type="password" name="password_confirmation" />
         </div>
-
-        <div class="flex gap-3">
-            <button type="submit" class="bg-green-200 border border-gray-400 px-6 py-2 rounded-sm font-semibold">Update</button>
-            <a href="{{ route('admin.akun.index') }}" class="px-6 py-2 border border-gray-400 rounded-sm">Batal</a>
+        <div class="flex gap-3 pt-2">
+            <x-button type="submit" variant="primary">Update</x-button>
+            <x-button variant="outline" onclick="window.location='{{ route('admin.akun.index') }}'">Batal</x-button>
         </div>
     </form>
 

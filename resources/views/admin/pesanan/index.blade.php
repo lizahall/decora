@@ -1,9 +1,9 @@
 <x-admin-layout title="Data Pesanan">
 
-    <h1 class="text-xl font-bold mb-4">Data Pesanan</h1>
+    <h1 class="text-xl font-bold text-decora-text mb-5">Data Pesanan</h1>
 
-    <form method="GET" class="mb-4 flex gap-2">
-        <select name="status" onchange="this.form.submit()" class="border border-gray-400 rounded-sm px-3 py-2 text-sm">
+    <form method="GET" class="mb-4">
+        <select name="status" onchange="this.form.submit()" class="border-decora-cream-dark rounded-lg text-sm focus:border-decora-sage focus:ring-decora-sage">
             <option value="">-- Semua Status --</option>
             @foreach (['menunggu', 'diproses', 'dikemas', 'dikirim', 'selesai', 'dibatalkan'] as $status)
                 <option value="{{ $status }}" {{ request('status') === $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
@@ -11,36 +11,36 @@
         </select>
     </form>
 
-    <table class="w-full border border-gray-400 bg-white text-sm">
-        <thead>
-            <tr class="border-b border-gray-400 bg-gray-50">
-                <th class="border-r border-gray-300 px-3 py-2 text-left">ID</th>
-                <th class="border-r border-gray-300 px-3 py-2 text-left">User</th>
-                <th class="border-r border-gray-300 px-3 py-2 text-left">Tanggal</th>
-                <th class="border-r border-gray-300 px-3 py-2 text-left">Total</th>
-                <th class="border-r border-gray-300 px-3 py-2 text-left">Status</th>
-                <th class="px-3 py-2 text-left">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($pesanan as $item)
-                <tr class="border-b border-gray-300">
-                    <td class="border-r border-gray-300 px-3 py-2">#{{ $item->id }}</td>
-                    <td class="border-r border-gray-300 px-3 py-2">{{ $item->user->nama }}</td>
-                    <td class="border-r border-gray-300 px-3 py-2">{{ $item->created_at->format('d/m/Y H:i') }}</td>
-                    <td class="border-r border-gray-300 px-3 py-2">Rp {{ number_format($item->total_harga, 0, ',', '.') }}</td>
-                    <td class="border-r border-gray-300 px-3 py-2 uppercase text-xs font-semibold">{{ $item->status_pesanan }}</td>
-                    <td class="px-3 py-2">
-                        <a href="{{ route('admin.pesanan.show', $item->id) }}" class="text-blue-600">Detail</a>
-                    </td>
+    <div class="bg-white rounded-xl border border-decora-cream-dark overflow-hidden">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="bg-decora-cream text-decora-text/70 text-left">
+                    <th class="px-4 py-3 font-medium">ID</th>
+                    <th class="px-4 py-3 font-medium">User</th>
+                    <th class="px-4 py-3 font-medium">Tanggal</th>
+                    <th class="px-4 py-3 font-medium">Total</th>
+                    <th class="px-4 py-3 font-medium">Status</th>
+                    <th class="px-4 py-3 font-medium">Aksi</th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="6" class="px-3 py-6 text-center text-gray-500">Belum ada pesanan.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+            </thead>
+            <tbody class="divide-y divide-decora-cream-dark">
+                @forelse ($pesanan as $item)
+                    <tr class="hover:bg-decora-cream/40">
+                        <td class="px-4 py-3 font-medium text-decora-text">#{{ $item->id }}</td>
+                        <td class="px-4 py-3 text-decora-text/70">{{ $item->user->nama }}</td>
+                        <td class="px-4 py-3 text-decora-text/70">{{ $item->created_at->format('d/m/Y H:i') }}</td>
+                        <td class="px-4 py-3 text-decora-text/70">Rp {{ number_format($item->total_harga, 0, ',', '.') }}</td>
+                        <td class="px-4 py-3"><x-status-badge :status="$item->status_pesanan" /></td>
+                        <td class="px-4 py-3">
+                            <a href="{{ route('admin.pesanan.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">Detail</a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr><td colspan="6" class="px-4 py-10 text-center text-decora-text/50">Belum ada pesanan.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
     <div class="mt-4">{{ $pesanan->links() }}</div>
 

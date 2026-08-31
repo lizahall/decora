@@ -1,50 +1,49 @@
 <x-admin-layout title="Data Produk">
 
-    <div class="flex items-center justify-between mb-4">
-        <h1 class="text-xl font-bold">Data Produk</h1>
-        <a href="{{ route('admin.produk.create') }}" class="bg-green-200 border border-gray-400 px-4 py-2 rounded-sm text-sm font-semibold">
+    <div class="flex items-center justify-between mb-5">
+        <h1 class="text-xl font-bold text-decora-text">Data Produk</h1>
+        <x-button variant="primary" onclick="window.location='{{ route('admin.produk.create') }}'">
             + Tambah Produk
-        </a>
+        </x-button>
     </div>
 
-    <table class="w-full border border-gray-400 bg-white text-sm">
-        <thead>
-            <tr class="border-b border-gray-400 bg-gray-50">
-                <th class="border-r border-gray-300 px-3 py-2 text-left">Foto</th>
-                <th class="border-r border-gray-300 px-3 py-2 text-left">Nama Produk</th>
-                <th class="border-r border-gray-300 px-3 py-2 text-left">Kategori</th>
-                <th class="border-r border-gray-300 px-3 py-2 text-left">Harga</th>
-                <th class="border-r border-gray-300 px-3 py-2 text-left">Stok</th>
-                <th class="px-3 py-2 text-left">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($produk as $item)
-                <tr class="border-b border-gray-300">
-                    <td class="border-r border-gray-300 px-3 py-2">
-                        <img src="{{ $item->foto ? asset('storage/'.$item->foto) : 'https://placehold.co/60x60' }}" class="w-12 h-12 object-cover rounded">
-                    </td>
-                    <td class="border-r border-gray-300 px-3 py-2">{{ $item->nama }}</td>
-                    <td class="border-r border-gray-300 px-3 py-2">{{ $item->kategori }}</td>
-                    <td class="border-r border-gray-300 px-3 py-2">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                    <td class="border-r border-gray-300 px-3 py-2">{{ $item->stok }}</td>
-                    <td class="px-3 py-2 space-x-2 whitespace-nowrap">
-                        <a href="{{ route('produk.show', $item->id) }}" class="text-blue-600" target="_blank">Detail</a>
-                        <a href="{{ route('admin.produk.edit', $item->id) }}" class="text-yellow-600">Edit</a>
-                        <form action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus produk ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600">Hapus</button>
-                        </form>
-                    </td>
+    <div class="bg-white rounded-xl border border-decora-cream-dark overflow-hidden">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="bg-decora-cream text-decora-text/70 text-left">
+                    <th class="px-4 py-3 font-medium">Foto</th>
+                    <th class="px-4 py-3 font-medium">Nama Produk</th>
+                    <th class="px-4 py-3 font-medium">Kategori</th>
+                    <th class="px-4 py-3 font-medium">Harga</th>
+                    <th class="px-4 py-3 font-medium">Stok</th>
+                    <th class="px-4 py-3 font-medium">Aksi</th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="6" class="px-3 py-6 text-center text-gray-500">Belum ada data produk.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+            </thead>
+            <tbody class="divide-y divide-decora-cream-dark">
+                @forelse ($produk as $item)
+                    <tr class="hover:bg-decora-cream/40">
+                        <td class="px-4 py-3">
+                            <img src="{{ $item->foto ? asset('storage/'.$item->foto) : 'https://placehold.co/48x48' }}" class="w-12 h-12 object-cover rounded-lg">
+                        </td>
+                        <td class="px-4 py-3 font-medium text-decora-text">{{ $item->nama }}</td>
+                        <td class="px-4 py-3 text-decora-text/70">{{ $item->kategori }}</td>
+                        <td class="px-4 py-3 text-decora-text/70">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+                        <td class="px-4 py-3 text-decora-text/70">{{ $item->stok }}</td>
+                        <td class="px-4 py-3 space-x-3 whitespace-nowrap">
+                            <a href="{{ route('produk.show', $item->id) }}" target="_blank" class="text-decora-brown font-medium hover:underline">Detail</a>
+                            <a href="{{ route('admin.produk.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">Edit</a>
+                            <form action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus produk ini?')">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="text-red-600 font-medium hover:underline">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr><td colspan="6" class="px-4 py-10 text-center text-decora-text/50">Belum ada data produk.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
     <div class="mt-4">{{ $produk->links() }}</div>
 

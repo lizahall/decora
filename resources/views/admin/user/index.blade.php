@@ -1,50 +1,45 @@
 <x-admin-layout title="Data User">
 
-    <div class="flex items-center justify-between mb-4">
-        <h1 class="text-xl font-bold">Data User</h1>
+    <div class="flex items-center justify-between mb-5">
+        <h1 class="text-xl font-bold text-decora-text">Data User</h1>
         <form method="GET" class="flex gap-2">
             <input type="text" name="cari" value="{{ request('cari') }}" placeholder="Cari nama/email..."
-                   class="border border-gray-400 rounded-sm px-3 py-2 text-sm">
-            <button type="submit" class="px-4 py-2 border border-gray-400 rounded-sm text-sm bg-gray-50">Cari</button>
+                   class="border-decora-cream-dark rounded-lg text-sm focus:border-decora-sage focus:ring-decora-sage">
+            <x-button type="submit" variant="outline" class="!py-2">Cari</x-button>
         </form>
     </div>
 
-    @if (session('success'))
-        <div class="mb-4 text-sm text-green-700 bg-green-50 border border-green-200 rounded p-2">{{ session('success') }}</div>
-    @endif
-
-    <table class="w-full border border-gray-400 bg-white text-sm">
-        <thead>
-            <tr class="border-b border-gray-400 bg-gray-50">
-                <th class="border-r border-gray-300 px-3 py-2 text-left">Nama</th>
-                <th class="border-r border-gray-300 px-3 py-2 text-left">Email</th>
-                <th class="border-r border-gray-300 px-3 py-2 text-left">No. Telepon</th>
-                <th class="border-r border-gray-300 px-3 py-2 text-left">Terdaftar</th>
-                <th class="px-3 py-2 text-left">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($users as $user)
-                <tr class="border-b border-gray-300">
-                    <td class="border-r border-gray-300 px-3 py-2">{{ $user->nama }}</td>
-                    <td class="border-r border-gray-300 px-3 py-2">{{ $user->email }}</td>
-                    <td class="border-r border-gray-300 px-3 py-2">{{ $user->no_telepon ?? '-' }}</td>
-                    <td class="border-r border-gray-300 px-3 py-2">{{ $user->created_at->format('d/m/Y') }}</td>
-                    <td class="px-3 py-2">
-                        <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Hapus user ini? Semua data pesanan & keranjangnya ikut terhapus.')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600">Hapus</button>
-                        </form>
-                    </td>
+    <div class="bg-white rounded-xl border border-decora-cream-dark overflow-hidden">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="bg-decora-cream text-decora-text/70 text-left">
+                    <th class="px-4 py-3 font-medium">Nama</th>
+                    <th class="px-4 py-3 font-medium">Email</th>
+                    <th class="px-4 py-3 font-medium">No. Telepon</th>
+                    <th class="px-4 py-3 font-medium">Terdaftar</th>
+                    <th class="px-4 py-3 font-medium">Aksi</th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="5" class="px-3 py-6 text-center text-gray-500">Belum ada user terdaftar.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+            </thead>
+            <tbody class="divide-y divide-decora-cream-dark">
+                @forelse ($users as $user)
+                    <tr class="hover:bg-decora-cream/40">
+                        <td class="px-4 py-3 font-medium text-decora-text">{{ $user->nama }}</td>
+                        <td class="px-4 py-3 text-decora-text/70">{{ $user->email }}</td>
+                        <td class="px-4 py-3 text-decora-text/70">{{ $user->no_telepon ?? '-' }}</td>
+                        <td class="px-4 py-3 text-decora-text/70">{{ $user->created_at->format('d/m/Y') }}</td>
+                        <td class="px-4 py-3">
+                            <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Hapus user ini beserta pesanan & keranjangnya?')">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="text-red-600 font-medium hover:underline">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr><td colspan="5" class="px-4 py-10 text-center text-decora-text/50">Belum ada user terdaftar.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
     <div class="mt-4">{{ $users->links() }}</div>
 

@@ -6,71 +6,51 @@
     <title>Login Admin - DECORA</title>
     @vite('resources/css/app.css')
 </head>
-<body class="min-h-screen flex items-center justify-center" style="background-color: #FBF6EE;">
+<body class="font-sans antialiased">
+    <div class="min-h-screen flex items-center justify-center bg-decora-cream px-4">
 
-    <div class="w-full max-w-sm border border-gray-400 rounded-md overflow-hidden bg-white shadow-sm">
+        <div class="w-full max-w-sm bg-white rounded-xl border border-decora-cream-dark shadow-sm overflow-hidden">
 
-        {{-- Title bar --}}
-        <div class="text-center font-bold py-3 border-b border-gray-400" style="background-color: #FBF6EE;">
-            HALAMAN LOGIN ADMIN
-        </div>
+            <div class="bg-decora-brown text-white text-center py-5">
+                <p class="font-bold text-xl tracking-wide">DECORA</p>
+                <p class="text-xs text-white/70 mt-1">Panel Administrator</p>
+            </div>
 
-        <div class="p-6">
+            <div class="p-8">
+                @if ($errors->any())
+                    <div class="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
+                        @foreach ($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
 
-            {{-- Pesan error validasi (SEKENARIO GAGAL) --}}
-            @if ($errors->any())
-                <div class="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded p-2">
-                    @foreach ($errors->all() as $error)
-                        <p>{{ $error }}</p>
-                    @endforeach
-                </div>
-            @endif
+                <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-4">
+                    @csrf
 
-            <form method="POST" action="{{ route('admin.login.submit') }}">
-                @csrf
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-decora-text/70 mb-1">Email</label>
+                        <input
+                            id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                            class="w-full border-decora-cream-dark bg-decora-cream/40 rounded-lg focus:border-decora-sage focus:ring-decora-sage"
+                        >
+                    </div>
 
-                {{-- Email --}}
-                <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        value="{{ old('email') }}"
-                        required
-                        autofocus
-                        class="w-full border border-gray-400 rounded-sm px-3 py-2 focus:outline-none focus:ring-2"
-                        style="--tw-ring-color: #A8D5BA;"
-                    >
-                </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-decora-text/70 mb-1">Password</label>
+                        <input
+                            id="password" type="password" name="password" required
+                            class="w-full border-decora-cream-dark bg-decora-cream/40 rounded-lg focus:border-decora-sage focus:ring-decora-sage"
+                        >
+                    </div>
 
-                {{-- Password --}}
-                <div class="mb-6">
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        required
-                        class="w-full border border-gray-400 rounded-sm px-3 py-2 focus:outline-none focus:ring-2"
-                        style="--tw-ring-color: #A8D5BA;"
-                    >
-                </div>
-
-                {{-- Tombol Login --}}
-                <div class="flex justify-center">
-                    <button
-                        type="submit"
-                        class="px-10 py-2 rounded-sm font-semibold text-gray-800 border border-gray-400 hover:opacity-90 transition"
-                        style="background-color: #C9E4CA;"
-                    >
-                        LOGIN
+                    <button type="submit"
+                            class="w-full py-2.5 bg-decora-brown text-white rounded-lg font-semibold hover:bg-decora-brown-dark transition">
+                        Masuk
                     </button>
-                </div>
-
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-
 </body>
 </html>
