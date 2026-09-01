@@ -18,6 +18,7 @@
             <div class="hidden md:flex items-center gap-6 text-sm font-medium">
                 <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-decora-brown' : 'text-decora-text/70 hover:text-decora-brown' }}">Beranda</a>
                 <a href="{{ route('produk.index') }}" class="{{ request()->routeIs('produk.*') ? 'text-decora-brown' : 'text-decora-text/70 hover:text-decora-brown' }}">Katalog</a>
+                <a href="{{ route('kontak.index') }}" class="{{ request()->routeIs('kontak.*') ? 'text-decora-brown' : 'text-decora-text/70 hover:text-decora-brown' }}">Kontak</a>
             </div>
 
             {{-- Search bar --}}
