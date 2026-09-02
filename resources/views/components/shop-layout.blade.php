@@ -8,50 +8,66 @@
 </head>
 <body class="bg-decora-cream min-h-screen flex flex-col font-sans text-decora-text">
 
-    <nav class="bg-white/80 backdrop-blur border-b border-decora-cream-dark sticky top-0 z-20">
+    {{-- Top utility bar --}}
+    <div class="bg-decora-brown text-white text-xs">
+        <div class="max-w-6xl mx-auto px-4 h-8 flex items-center justify-end">
+            <div class="flex items-center gap-4">
+                @auth
+                    <a href="{{ route('pesanan.index') }}" class="hover:underline">📦 Lacak Pesanan</a>
+                @endauth
+            </div>
+        </div>
+    </div>
+
+    {{-- Navbar utama --}}
+    <nav class="bg-white/90 backdrop-blur border-b border-decora-cream-dark sticky top-0 z-20">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-6">
 
             <a href="{{ route('home') }}" class="font-bold text-xl text-decora-brown tracking-wide shrink-0">
-                DECORA
+                DECORA<span class="text-decora-sage-dark">.</span>
             </a>
 
-            <div class="hidden md:flex items-center gap-6 text-sm font-medium">
-                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-decora-brown' : 'text-decora-text/70 hover:text-decora-brown' }}">Beranda</a>
-                <a href="{{ route('produk.index') }}" class="{{ request()->routeIs('produk.*') ? 'text-decora-brown' : 'text-decora-text/70 hover:text-decora-brown' }}">Katalog</a>
-                <a href="{{ route('kontak.index') }}" class="{{ request()->routeIs('kontak.*') ? 'text-decora-brown' : 'text-decora-text/70 hover:text-decora-brown' }}">Kontak</a>
+            <div class="hidden md:flex items-center gap-7 text-sm font-medium">
+                <a href="{{ route('home') }}" class="pb-1 border-b-2 {{ request()->routeIs('home') ? 'border-decora-brown text-decora-brown' : 'border-transparent text-decora-text/70 hover:text-decora-brown' }}">Beranda</a>
+                <a href="{{ route('produk.index') }}" class="pb-1 border-b-2 {{ request()->routeIs('produk.*') ? 'border-decora-brown text-decora-brown' : 'border-transparent text-decora-text/70 hover:text-decora-brown' }}">Katalog</a>
+                <a href="{{ route('kontak.index') }}" class="pb-1 border-b-2 {{ request()->routeIs('kontak.*') ? 'border-decora-brown text-decora-brown' : 'border-transparent text-decora-text/70 hover:text-decora-brown' }}">Kontak</a>
             </div>
 
             {{-- Search bar --}}
             <form action="{{ route('produk.index') }}" method="GET" class="hidden sm:block flex-1 max-w-xs">
-                <input
-                    type="text"
-                    name="cari"
-                    value="{{ request('cari') }}"
-                    placeholder="Cari produk..."
-                    class="w-full text-sm rounded-full border-decora-cream-dark bg-decora-cream focus:bg-white focus:ring-decora-sage focus:border-decora-sage"
-                >
+                <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-decora-text/40 text-sm">🔍</span>
+                    <input
+                        type="text"
+                        name="cari"
+                        value="{{ request('cari') }}"
+                        placeholder="Cari produk..."
+                        class="w-full pl-9 text-sm rounded-full border-decora-cream-dark bg-decora-cream focus:bg-white focus:ring-decora-sage focus:border-decora-sage"
+                    >
+                </div>
             </form>
 
             <div class="flex items-center gap-4 text-sm shrink-0">
                 @auth
-                    <a href="{{ route('keranjang.index') }}" class="relative text-decora-text/70 hover:text-decora-brown" title="Keranjang">
+                    <a href="{{ route('keranjang.index') }}" class="relative text-decora-text/70 hover:text-decora-brown text-lg" title="Keranjang">
                         🛒
                         @php $jumlahKeranjang = auth()->user()->keranjang()->sum('jumlah'); @endphp
                         @if ($jumlahKeranjang > 0)
-                            <span class="absolute -top-2 -right-2 bg-decora-brown text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">{{ $jumlahKeranjang }}</span>
+                            <span class="absolute -top-1.5 -right-2 bg-decora-brown text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">{{ $jumlahKeranjang }}</span>
                         @endif
                     </a>
 
                     <div class="relative group">
-                        <button class="font-medium text-decora-text/80 hover:text-decora-brown flex items-center gap-1">
-                            {{ auth()->user()->nama }} <span class="text-xs">▾</span>
+                        <button class="w-8 h-8 rounded-full bg-decora-sage/40 flex items-center justify-center text-sm font-bold text-decora-brown-dark">
+                            {{ strtoupper(substr(auth()->user()->nama, 0, 1)) }}
                         </button>
                         <div class="absolute right-0 mt-2 w-44 bg-white border border-decora-cream-dark rounded-lg shadow-lg hidden group-hover:block z-10 overflow-hidden">
-                            <a href="{{ route('pesanan.index') }}" class="block px-4 py-2 hover:bg-decora-cream">Riwayat Pesanan</a>
-                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-decora-cream">Edit Profil</a>
+                            <p class="px-4 py-2 text-xs text-decora-text/50 border-b border-decora-cream-dark">{{ auth()->user()->nama }}</p>
+                            <a href="{{ route('pesanan.index') }}" class="block px-4 py-2 hover:bg-decora-cream text-sm">Riwayat Pesanan</a>
+                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-decora-cream text-sm">Edit Profil</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="w-full text-left px-4 py-2 hover:bg-decora-cream text-red-600">Logout</button>
+                                <button type="submit" class="w-full text-left px-4 py-2 hover:bg-decora-cream text-red-600 text-sm">Logout</button>
                             </form>
                         </div>
                     </div>
