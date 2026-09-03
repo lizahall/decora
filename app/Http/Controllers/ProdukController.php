@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
-    // Katalog produk
     public function index(Request $request)
     {
         $query = Produk::query();
@@ -20,18 +19,16 @@ class ProdukController extends Controller
             $query->where('nama', 'like', '%' . $request->cari . '%');
         }
 
-        $produk = $query->latest()->paginate(12);
+        $produk = $query->latest()->paginate(12)->withQueryString();
         $kategori = Produk::select('kategori')->distinct()->pluck('kategori');
 
         return view('produk.index', compact('produk', 'kategori'));
     }
 
-    // Detail produk (skenario "Melihat Detail Produk")
     public function show($id)
     {
         $produk = Produk::find($id);
 
-        // SEKENARIO GAGAL: produk tidak ditemukan
         if (!$produk) {
             return redirect()->route('produk.index')
                 ->with('error', 'Produk tidak ditemukan.');
