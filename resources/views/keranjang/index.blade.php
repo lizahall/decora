@@ -1,14 +1,6 @@
 <x-shop-layout title="Keranjang">
     <div class="max-w-6xl mx-auto px-4 py-10">
-
         <h1 class="text-2xl font-bold text-decora-text mb-6">Keranjang Belanja</h1>
-
-        @if (session('error'))
-            <div class="mb-6 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">{{ session('error') }}</div>
-        @endif
-        @if (session('success'))
-            <div class="mb-6 text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg p-3">{{ session('success') }}</div>
-        @endif
 
         @if ($items->isEmpty())
             <div class="text-center py-20">
@@ -16,10 +8,10 @@
                 <x-button variant="primary" onclick="window.location='{{ route('produk.index') }}'">Mulai Belanja</x-button>
             </div>
         @else
-            <div class="flex flex-col lg:flex-row gap-8 items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
                 {{-- Daftar Item --}}
-                <div class="flex-1 w-full bg-white rounded-xl border border-decora-cream-dark divide-y divide-decora-cream-dark">
+                <div class="lg:col-span-2 bg-white rounded-xl border border-decora-cream-dark divide-y divide-decora-cream-dark">
                     @foreach ($items as $item)
                         <div class="flex items-center gap-4 p-4">
                             <img src="{{ $item->produk->foto ? asset('storage/'.$item->produk->foto) : 'https://placehold.co/80x80' }}"
@@ -30,29 +22,36 @@
                                 <p class="text-sm text-decora-text/60">Rp {{ number_format($item->produk->harga, 0, ',', '.') }}</p>
                             </div>
 
-                            <form action="{{ route('keranjang.update', $item->id) }}" method="POST" class="flex items-center gap-2">
+                            {{-- Stepper quantity, auto-submit --}}
+                            <form action="{{ route('keranjang.update', $item->id) }}" method="POST" class="flex items-center border border-decora-cream-dark rounded-lg overflow-hidden shrink-0">
                                 @csrf
                                 @method('PATCH')
-                                <input type="number" name="jumlah" value="{{ $item->jumlah }}" min="1" max="{{ $item->produk->stok }}"
-                                       class="w-16 text-sm border-decora-cream-dark rounded-lg focus:border-decora-sage focus:ring-decora-sage">
-                                <button type="submit" class="text-xs text-decora-brown font-medium hover:underline">Update</button>
+                                <button type="submit" name="jumlah" value="{{ max(1, $item->jumlah - 1) }}"
+                                        class="w-8 h-8 text-decora-text/60 hover:bg-decora-cream" {{ $item->jumlah <= 1 ? 'disabled' : '' }}>−</button>
+                                <span class="w-10 text-center text-sm">{{ $item->jumlah }}</span>
+                                <button type="submit" name="jumlah" value="{{ min($item->produk->stok, $item->jumlah + 1) }}"
+                                        class="w-8 h-8 text-decora-text/60 hover:bg-decora-cream" {{ $item->jumlah >= $item->produk->stok ? 'disabled' : '' }}>+</button>
                             </form>
 
                             <p class="font-semibold text-decora-text w-28 text-right shrink-0">
                                 Rp {{ number_format($item->produk->harga * $item->jumlah, 0, ',', '.') }}
                             </p>
 
-                            <form action="{{ route('keranjang.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Hapus produk ini dari keranjang?')">
+                            {{-- Hapus, pakai SweetAlert2 --}}
+                            <form id="hapus-form-{{ $item->id }}" action="{{ route('keranjang.destroy', $item->id) }}" method="POST" class="shrink-0">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-decora-text/40 hover:text-red-600 text-lg leading-none">&times;</button>
+                                <button type="button" onclick="konfirmasiHapus({{ $item->id }}, '{{ addslashes($item->produk->nama) }}')"
+                                        class="w-8 h-8 rounded-full text-decora-text/40 hover:bg-red-50 hover:text-red-600 transition">
+                                    🗑
+                                </button>
                             </form>
                         </div>
                     @endforeach
                 </div>
 
                 {{-- Ringkasan Belanja --}}
-                <div class="w-full lg:w-80 shrink-0 bg-white rounded-xl border border-decora-cream-dark p-5 sticky top-20">
+                <div class="bg-white rounded-xl border border-decora-cream-dark p-5 sticky top-20">
                     <p class="font-semibold text-decora-text mb-4">Ringkasan Belanja</p>
 
                     <div class="flex justify-between text-sm text-decora-text/70 mb-2">
@@ -74,4 +73,23 @@
             </div>
         @endif
     </div>
+
+    <script>
+        function konfirmasiHapus(id, nama) {
+            Swal.fire({
+                title: 'Hapus produk ini?',
+                text: nama + ' akan dihapus dari keranjang.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#6B4E3D',
+                cancelButtonColor: '#9CA3AF',
+                confirmButtonText: 'Ya, hapus',
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('hapus-form-' + id).submit();
+                }
+            });
+        }
+    </script>
 </x-shop-layout>

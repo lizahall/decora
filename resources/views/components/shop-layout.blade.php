@@ -8,17 +8,6 @@
 </head>
 <body class="bg-decora-cream min-h-screen flex flex-col font-sans text-decora-text">
 
-    {{-- Top utility bar --}}
-    <div class="bg-decora-brown text-white text-xs">
-        <div class="max-w-6xl mx-auto px-4 h-8 flex items-center justify-end">
-            <div class="flex items-center gap-4">
-                @auth
-                    <a href="{{ route('pesanan.index') }}" class="hover:underline">📦 Lacak Pesanan</a>
-                @endauth
-            </div>
-        </div>
-    </div>
-
     {{-- Navbar utama --}}
     <nav class="bg-white/90 backdrop-blur border-b border-decora-cream-dark sticky top-0 z-20">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-6">
@@ -58,17 +47,23 @@
                     </a>
 
                     <div class="relative group">
-                        <button class="w-8 h-8 rounded-full bg-decora-sage/40 flex items-center justify-center text-sm font-bold text-decora-brown-dark">
-                            {{ strtoupper(substr(auth()->user()->nama, 0, 1)) }}
+                        <button class="w-8 h-8 rounded-full bg-decora-sage/40 flex items-center justify-center text-sm font-bold text-decora-brown-dark overflow-hidden">
+                            @if (auth()->user()->foto)
+                                <img src="{{ asset('storage/'.auth()->user()->foto) }}" class="w-full h-full object-cover">
+                            @else
+                                {{ strtoupper(substr(auth()->user()->nama, 0, 1)) }}
+                            @endif
                         </button>
-                        <div class="absolute right-0 mt-2 w-44 bg-white border border-decora-cream-dark rounded-lg shadow-lg hidden group-hover:block z-10 overflow-hidden">
-                            <p class="px-4 py-2 text-xs text-decora-text/50 border-b border-decora-cream-dark">{{ auth()->user()->nama }}</p>
-                            <a href="{{ route('pesanan.index') }}" class="block px-4 py-2 hover:bg-decora-cream text-sm">Riwayat Pesanan</a>
-                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-decora-cream text-sm">Edit Profil</a>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="w-full text-left px-4 py-2 hover:bg-decora-cream text-red-600 text-sm">Logout</button>
-                            </form>
+                        <div class="absolute right-0 top-full pt-2 w-44 hidden group-hover:block z-10">
+                            <div class="bg-white border border-decora-cream-dark rounded-lg shadow-lg overflow-hidden">
+                                <p class="px-4 py-2 text-xs text-decora-text/50 border-b border-decora-cream-dark">{{ auth()->user()->nama }}</p>
+                                <a href="{{ route('pesanan.index') }}" class="block px-4 py-2 hover:bg-decora-cream text-sm">Riwayat Pesanan</a>
+                                <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-decora-cream text-sm">Edit Profil</a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="w-full text-left px-4 py-2 hover:bg-decora-cream text-red-600 text-sm">Logout</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 @else
@@ -94,6 +89,26 @@
             &copy; {{ date('Y') }} DECORA — Furniture &amp; Dekorasi Rumah
         </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                toast: true, position: 'top-end', icon: 'success',
+                title: @json(session('success')),
+                showConfirmButton: false, timer: 3000, timerProgressBar: true,
+            });
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                toast: true, position: 'top-end', icon: 'error',
+                title: @json(session('error')),
+                showConfirmButton: false, timer: 3500, timerProgressBar: true,
+            });
+        </script>
+    @endif
 
 </body>
 </html>
