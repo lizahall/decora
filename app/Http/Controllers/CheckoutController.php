@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\DB;
 class CheckoutController extends Controller
 {
     // Menampilkan form checkout. Mode ditentukan dari query string:
-    // - ?produk_id=X&jumlah=Y  -> checkout langsung dari detail produk
-    // - (tanpa parameter)      -> checkout via keranjang
+    // - ?produk_id=X&jumlah=Y     -> checkout langsung dari detail produk
+    // - ?keranjang_ids[]=1&...    -> checkout item terpilih dari keranjang
     public function create(Request $request)
     {
         if ($request->filled('produk_id')) {
@@ -36,11 +36,23 @@ class CheckoutController extends Controller
 
             $total = $items->sum('subtotal');
             $mode = 'langsung';
+            $keranjangIds = [];
         } else {
-            $keranjang = Keranjang::with('produk')->where('user_id', Auth::id())->get();
+            $keranjangIds = $request->input('keranjang_ids', []);
+
+            if (empty($keranjangIds)) {
+                return redirect()->route('keranjang.index')
+                    ->with('error', 'Pilih produk yang ingin di-checkout terlebih dahulu.');
+            }
+
+            $keranjang = Keranjang::with('produk')
+                ->where('user_id', Auth::id())
+                ->whereIn('id', $keranjangIds)
+                ->get();
 
             if ($keranjang->isEmpty()) {
-                return redirect()->route('keranjang.index')->with('error', 'Keranjang masih kosong.');
+                return redirect()->route('keranjang.index')
+                    ->with('error', 'Produk yang dipilih tidak ditemukan di keranjang.');
             }
 
             $items = $keranjang->map(fn ($k) => (object) [
@@ -53,10 +65,10 @@ class CheckoutController extends Controller
             $mode = 'keranjang';
         }
 
-        return view('checkout.create', compact('items', 'total', 'mode'));
+        return view('checkout.create', compact('items', 'total', 'mode', 'keranjangIds'));
     }
 
-    // Proses submit pesanan (skenario "Checkout Via Keranjang" & "Checkout Langsung")
+    // Proses submit pesanan
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -66,6 +78,7 @@ class CheckoutController extends Controller
             'mode' => 'required|in:keranjang,langsung',
             'produk_id' => 'nullable|exists:produk,id',
             'jumlah' => 'nullable|integer|min:1',
+            'keranjang_ids' => 'nullable|array',
         ]);
 
         try {
@@ -81,10 +94,15 @@ class CheckoutController extends Controller
 
                     $items = collect([['produk' => $produk, 'jumlah' => $jumlah]]);
                 } else {
-                    $keranjang = Keranjang::with('produk')->where('user_id', Auth::id())->get();
+                    $keranjangIds = $request->input('keranjang_ids', []);
+
+                    $keranjang = Keranjang::with('produk')
+                        ->where('user_id', Auth::id())
+                        ->whereIn('id', $keranjangIds)
+                        ->get();
 
                     if ($keranjang->isEmpty()) {
-                        throw new \Exception('Keranjang kosong.');
+                        throw new \Exception('Produk yang dipilih tidak ditemukan di keranjang.');
                     }
 
                     foreach ($keranjang as $k) {
@@ -120,18 +138,19 @@ class CheckoutController extends Controller
                 }
 
                 if ($validated['mode'] === 'keranjang') {
-                    Keranjang::where('user_id', Auth::id())->delete();
+                    // Hapus HANYA item yang dipilih & di-checkout, bukan semua isi keranjang
+                    Keranjang::where('user_id', Auth::id())
+                        ->whereIn('id', $request->input('keranjang_ids', []))
+                        ->delete();
                 }
 
                 return $pesanan;
             });
 
-            // SEKENARIO BERHASIL
-            return redirect('/pesanan/' . $pesanan->id)
+            return redirect()->route('pesanan.show', $pesanan->id)
                 ->with('success', 'Pesanan berhasil dibuat.');
 
         } catch (\Exception $e) {
-            // SEKENARIO GAGAL
             return back()->with('error', $e->getMessage())->withInput();
         }
     }

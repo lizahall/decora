@@ -1,9 +1,9 @@
 <x-shop-layout title="Katalog Produk">
+
+    <x-page-hero title="Katalog Produk" subtitle="Temukan berbagai furniture dan dekorasi sesuai kebutuhanmu" />
+
     <div class="max-w-6xl mx-auto px-4 py-10">
 
-        <h1 class="text-2xl font-bold text-decora-text mb-6">Katalog Produk</h1>
-
-        {{-- Kategori Horizontal --}}
         <div class="flex items-center gap-3 flex-wrap mb-8">
             <span class="text-sm font-semibold text-decora-text/60">Kategori:</span>
 

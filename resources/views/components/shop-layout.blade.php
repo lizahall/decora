@@ -5,8 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? 'DECORA' }}</title>
     @vite('resources/css/app.css')
+    <style>
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(18px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up { animation: fadeUp 0.7s ease-out both; }
+    </style>
 </head>
 <body class="bg-decora-cream min-h-screen flex flex-col font-sans text-decora-text">
+
+    {{-- Dekorasi blob warna blur, biar background gak polos flat --}}
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div class="absolute -top-20 -left-20 w-72 h-72 bg-decora-sage/25 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/3 -right-24 w-96 h-96 bg-decora-brown/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-decora-sage/15 rounded-full blur-3xl"></div>
+    </div>
 
     {{-- Navbar utama --}}
     <nav class="bg-white/90 backdrop-blur border-b border-decora-cream-dark sticky top-0 z-20">

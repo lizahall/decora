@@ -1,65 +1,46 @@
 <x-shop-layout title="Beranda">
 
-    {{-- Hero Section: 1 kartu besar, teks kiri (padded) + foto kanan (full-bleed) --}}
-    <div class="max-w-6xl mx-auto px-4 py-10">
-        <div class="bg-decora-cream-dark rounded-3xl overflow-hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 items-stretch">
+    {{-- Hero Section: full-bleed foto dominan, teks rata kiri --}}
+    <div class="relative h-[420px] sm:h-[520px] overflow-hidden">
+        <img src="{{ asset('images/hero-living-room.jpg') }}"
+             alt="Ruang tamu dengan furniture DECORA"
+             class="absolute inset-0 w-full h-full object-cover">
 
-                <div class="p-8 sm:p-10 md:p-12 flex flex-col justify-center">
-                    <p class="text-xs font-semibold tracking-widest text-decora-brown uppercase mb-3">
-                        Furniture &amp; Dekorasi Rumah
-                    </p>
+        {{-- Gradient gelap dari kiri biar teks kebaca --}}
+        <div class="absolute inset-0 bg-gradient-to-r from-decora-text/80 via-decora-text/40 to-transparent"></div>
 
-                    <h1 class="text-3xl sm:text-4xl font-bold text-decora-text mb-4 leading-tight">
-                        Percantik Rumah,<br>Ciptakan Kenyamanan
-                    </h1>
+        {{-- Fade halus ke background cream di bawah, biar transisi ke section berikutnya smooth --}}
+        <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-decora-cream pointer-events-none"></div>
 
-                    <p class="text-decora-text/70 mb-8 max-w-sm">
-                        Temukan berbagai furniture dan dekorasi terbaik untuk hunian impianmu di DECORA.
-                    </p>
+        <div class="relative h-full max-w-6xl mx-auto px-4 flex items-center">
+            <div class="max-w-md">
+                <p class="text-xs font-semibold tracking-widest text-white/80 uppercase mb-3 animate-fade-up">
+                    Furniture &amp; Dekorasi Rumah
+                </p>
 
-                    <x-button variant="primary" class="!px-7 !py-3 self-start" onclick="window.location='{{ route('produk.index') }}'">
-                        Belanja Sekarang →
-                    </x-button>
+                <h1 class="text-3xl sm:text-5xl font-bold text-white mb-4 leading-tight animate-fade-up" style="animation-delay: 0.1s">
+                    Percantik Rumah,<br>Ciptakan Kenyamanan
+                </h1>
 
-                    <div class="flex flex-wrap gap-x-6 gap-y-3 mt-8 text-xs text-decora-text/60">
-                        <div class="flex items-center gap-2">
-                            <span class="text-base">🚚</span>
-                            <div>
-                                <p class="font-semibold text-decora-text">Gratis Ongkir</p>
-                                <p>Min. pembelian tertentu</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-base">↩️</span>
-                            <div>
-                                <p class="font-semibold text-decora-text">Retur Mudah</p>
-                                <p>7 hari pengembalian</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-base">🔒</span>
-                            <div>
-                                <p class="font-semibold text-decora-text">Pembayaran Aman</p>
-                                <p>100% terjamin</p>
-                            </div>
-                        </div>
-                    </div>
+                <p class="text-white/80 mb-8 max-w-sm animate-fade-up" style="animation-delay: 0.2s">
+                    Temukan berbagai furniture dan dekorasi terbaik untuk hunian impianmu di DECORA.
+                </p>
+
+                <div class="flex flex-wrap gap-3 animate-fade-up" style="animation-delay: 0.3s">
+                    <a href="{{ route('produk.index') }}"
+                       class="px-7 py-3 rounded-lg bg-decora-brown text-white font-semibold hover:bg-decora-brown-dark transition">
+                        Belanja Sekarang
+                    </a>
+                    <a href="{{ route('produk.index') }}"
+                       class="px-7 py-3 rounded-lg border-2 border-white/70 text-white font-semibold hover:bg-white/10 transition">
+                        Lihat Koleksi
+                    </a>
                 </div>
-
-                <div class="relative h-64 sm:h-72 md:h-full">
-                    <img src="{{ asset('images/hero-living-room.jpg') }}"
-                         alt="Ruang tamu dengan furniture DECORA"
-                         class="absolute inset-0 w-full h-full object-cover">
-                    {{-- Fade cuma di sisi kiri (deket teks), sisanya full nempel ke tepi card --}}
-                    <div class="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-decora-cream-dark to-transparent pointer-events-none"></div>
-                </div>
-
             </div>
         </div>
     </div>
 
-    <div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="max-w-6xl mx-auto px-4 py-10">
 
         {{-- Kategori Cepat --}}
         <div class="flex items-center gap-3 flex-wrap mb-8">

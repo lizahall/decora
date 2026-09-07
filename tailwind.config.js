@@ -16,8 +16,8 @@ export default {
             },
             colors: {
                 decora: {
-                    cream: '#FBF6EE',
-                    'cream-dark': '#F3EADB',
+                    cream: '#F3E9CC',        // background utama, lebih hangat (tan), gak pucat
+                    'cream-dark': '#E9D7A8', // background alternatif (hero, footer, section selang-seling)
                     brown: '#6B4E3D',
                     'brown-dark': '#54392B',
                     sage: '#B4C7AE',

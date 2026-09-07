@@ -20,6 +20,10 @@
             @if ($mode === 'langsung')
                 <input type="hidden" name="produk_id" value="{{ $items->first()->produk->id }}">
                 <input type="hidden" name="jumlah" value="{{ $items->first()->jumlah }}">
+            @else
+                @foreach ($keranjangIds as $id)
+                    <input type="hidden" name="keranjang_ids[]" value="{{ $id }}">
+                @endforeach
             @endif
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
