@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    // Menampilkan semua user terdaftar (skenario "Kelola Data User")
     public function index(Request $request)
     {
         $query = User::query();
@@ -23,7 +22,12 @@ class UserController extends Controller
         return view('admin.user.index', compact('users'));
     }
 
-    // Hapus akun user (beserta keranjang & pesanan miliknya, cascade dari FK)
+    // Detail read-only
+    public function show(User $user)
+    {
+        return view('admin.user.show', compact('user'));
+    }
+
     public function destroy(User $user)
     {
         $user->delete();

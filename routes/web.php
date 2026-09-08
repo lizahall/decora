@@ -28,6 +28,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['admin.auth'])->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
+        // resource() otomatis include route 'show' (admin.produk.show)
         Route::resource('produk', AdminProdukController::class);
 
         Route::get('/pesanan', [AdminPesananController::class, 'index'])->name('pesanan.index');
@@ -35,9 +36,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::patch('/pesanan/{pesanan}/status', [AdminPesananController::class, 'updateStatus'])->name('pesanan.updateStatus');
 
         Route::get('/user', [AdminUserController::class, 'index'])->name('user.index');
+        Route::get('/user/{user}', [AdminUserController::class, 'show'])->name('user.show');
         Route::delete('/user/{user}', [AdminUserController::class, 'destroy'])->name('user.destroy');
 
-        Route::resource('akun', AdminAkunController::class)->parameters(['akun' => 'akun'])->except(['show']);
+        // Hapus ->except(['show']) biar route admin.akun.show aktif lagi
+        Route::resource('akun', AdminAkunController::class)->parameters(['akun' => 'akun']);
 
         Route::get('/laporan', [AdminLaporanController::class, 'index'])->name('laporan.index');
     });

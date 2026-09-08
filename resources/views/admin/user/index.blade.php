@@ -27,8 +27,9 @@
                         <td class="px-4 py-3 text-decora-text/70">{{ $user->email }}</td>
                         <td class="px-4 py-3 text-decora-text/70">{{ $user->no_telepon ?? '-' }}</td>
                         <td class="px-4 py-3 text-decora-text/70">{{ $user->created_at->format('d/m/Y') }}</td>
-                        <td class="px-4 py-3">
-                            <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Hapus user ini beserta pesanan & keranjangnya?')">
+                        <td class="px-4 py-3 space-x-3 whitespace-nowrap">
+                            <a href="{{ route('admin.user.show', $user->id) }}" class="text-decora-brown font-medium hover:underline">Detail</a>
+                            <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus user ini beserta pesanan & keranjangnya?')">
                                 @csrf @method('DELETE')
                                 <button type="submit" class="text-red-600 font-medium hover:underline">Hapus</button>
                             </form>

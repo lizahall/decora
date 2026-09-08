@@ -27,9 +27,9 @@
                     <i class="fas fa-phone-alt"></i>
                 </div>
                 <h3 class="font-bold text-decora-text mb-2">Telepon / WhatsApp</h3>
-                <p class="text-sm font-medium text-decora-text mb-1">+62 812-3456-7890</p>
+                <p class="text-sm font-medium text-decora-text mb-1">+62 856-4082-8760</p>
                 <p class="text-xs text-decora-text/50 mb-4">(WhatsApp lebih cepat direspons)</p>
-                <a href="https://wa.me/6281234567890" target="_blank" rel="noopener"
+                <a href="https://wa.me/6285640828760" target="_blank" rel="noopener"
                    class="inline-flex items-center gap-2 text-sm font-medium text-green-600 hover:gap-3 transition-all">
                     <span>Chat via WhatsApp</span>
                     <i class="fab fa-whatsapp text-sm"></i>
@@ -64,7 +64,7 @@
                 <span>Rata-rata respon: 15 menit</span>
             </div>
             <div>
-                <a href="https://wa.me/6281234567890?text=Halo%20DECORA%2C%20saya%20ingin%20bertanya" target="_blank" rel="noopener"
+                <a href="https://wa.me/6285640828760?text=Halo%20DECORA%2C%20saya%20ingin%20bertanya" target="_blank" rel="noopener"
                    class="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 active:scale-95 transition px-6 py-3 rounded-full font-semibold">
                     <i class="fab fa-whatsapp text-lg"></i>
                     <span>Chat via WhatsApp</span>

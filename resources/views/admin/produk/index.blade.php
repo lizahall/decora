@@ -30,7 +30,7 @@
                         <td class="px-4 py-3 text-decora-text/70">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                         <td class="px-4 py-3 text-decora-text/70">{{ $item->stok }}</td>
                         <td class="px-4 py-3 space-x-3 whitespace-nowrap">
-                            <a href="{{ route('produk.show', $item->id) }}" target="_blank" class="text-decora-brown font-medium hover:underline">Detail</a>
+                            <a href="{{ route('admin.produk.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">Detail</a>
                             <a href="{{ route('admin.produk.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">Edit</a>
                             <form action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus produk ini?')">
                                 @csrf @method('DELETE')

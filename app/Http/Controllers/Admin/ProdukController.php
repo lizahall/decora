@@ -41,6 +41,12 @@ class ProdukController extends Controller
             ->with('success', 'Produk berhasil ditambahkan.');
     }
 
+    // Detail read-only, TIDAK bisa mengubah data
+    public function show(Produk $produk)
+    {
+        return view('admin.produk.show', compact('produk'));
+    }
+
     public function edit(Produk $produk)
     {
         return view('admin.produk.edit', compact('produk'));

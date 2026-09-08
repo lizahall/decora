@@ -5,6 +5,10 @@
         <x-button variant="primary" onclick="window.location='{{ route('admin.akun.create') }}'">+ Tambah Admin</x-button>
     </div>
 
+    @if (session('error'))
+        <div class="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">{{ session('error') }}</div>
+    @endif
+
     <div class="bg-white rounded-xl border border-decora-cream-dark overflow-hidden">
         <table class="w-full text-sm">
             <thead>
@@ -20,6 +24,7 @@
                         <td class="px-4 py-3 font-medium text-decora-text">{{ $item->nama }}</td>
                         <td class="px-4 py-3 text-decora-text/70">{{ $item->email }}</td>
                         <td class="px-4 py-3 space-x-3">
+                            <a href="{{ route('admin.akun.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">Detail</a>
                             <a href="{{ route('admin.akun.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">Edit</a>
                             <form action="{{ route('admin.akun.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus akun admin ini?')">
                                 @csrf @method('DELETE')

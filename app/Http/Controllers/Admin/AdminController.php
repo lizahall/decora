@@ -11,7 +11,6 @@ use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
-    // Menampilkan semua akun admin (skenario "Kelola Data Admin")
     public function index()
     {
         $admins = Admin::latest()->paginate(10);
@@ -39,6 +38,12 @@ class AdminController extends Controller
         ]);
 
         return redirect()->route('admin.akun.index')->with('success', 'Akun admin berhasil ditambahkan.');
+    }
+
+    // Detail read-only
+    public function show(Admin $akun)
+    {
+        return view('admin.akun.show', ['admin' => $akun]);
     }
 
     public function edit(Admin $akun)

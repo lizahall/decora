@@ -29,12 +29,13 @@
         </div>
     </div>
 
+    {{-- Satu-satunya bagian yang bisa diubah: status pesanan --}}
     <div class="bg-white border border-decora-cream-dark rounded-xl p-5">
+        <p class="font-semibold text-decora-text mb-3">Ubah Status Pesanan</p>
         <form method="POST" action="{{ route('admin.pesanan.updateStatus', $pesanan->id) }}" class="flex items-end gap-3">
             @csrf
             @method('PATCH')
             <div>
-                <x-input-label value="Ubah Status Pesanan" />
                 <select name="status_pesanan" class="border-decora-cream-dark rounded-lg focus:border-decora-sage focus:ring-decora-sage">
                     @foreach (['menunggu', 'diproses', 'dikemas', 'dikirim', 'selesai', 'dibatalkan'] as $status)
                         <option value="{{ $status }}" {{ $pesanan->status_pesanan === $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
