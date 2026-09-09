@@ -26,9 +26,9 @@
                         <td class="px-4 py-3 space-x-3">
                             <a href="{{ route('admin.akun.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">Detail</a>
                             <a href="{{ route('admin.akun.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">Edit</a>
-                            <form action="{{ route('admin.akun.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus akun admin ini?')">
+                            <form id="hapus-akun-{{ $item->id }}" action="{{ route('admin.akun.destroy', $item->id) }}" method="POST" class="inline">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="text-red-600 font-medium hover:underline">Hapus</button>
+                                <button type="button" onclick="konfirmasiHapus('hapus-akun-{{ $item->id }}', '{{ addslashes($item->nama) }}')" class="text-red-600 font-medium hover:underline">Hapus</button>
                             </form>
                         </td>
                     </tr>

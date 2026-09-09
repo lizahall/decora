@@ -33,6 +33,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/pesanan', [AdminPesananController::class, 'index'])->name('pesanan.index');
         Route::get('/pesanan/{pesanan}', [AdminPesananController::class, 'show'])->name('pesanan.show');
+        Route::get('/pesanan/{pesanan}/edit', [AdminPesananController::class, 'edit'])->name('pesanan.edit');
         Route::patch('/pesanan/{pesanan}/status', [AdminPesananController::class, 'updateStatus'])->name('pesanan.updateStatus');
 
         Route::get('/user', [AdminUserController::class, 'index'])->name('user.index');

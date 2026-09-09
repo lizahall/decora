@@ -31,19 +31,12 @@ class DashboardController extends Controller
             $dataPenjualan[] = (float) $total;
         }
 
-        // Data grafik: jumlah produk per kategori
-        $produkPerKategori = Produk::selectRaw('kategori, count(*) as jumlah')
-            ->groupBy('kategori')
-            ->pluck('jumlah', 'kategori');
-
         return view('admin.dashboard', [
             'totalProduk' => $totalProduk,
             'totalUser' => $totalUser,
             'totalPesanan' => $totalPesanan,
             'labelPenjualan' => $labelPenjualan,
             'dataPenjualan' => $dataPenjualan,
-            'labelKategori' => $produkPerKategori->keys(),
-            'dataKategori' => $produkPerKategori->values(),
         ]);
     }
 }

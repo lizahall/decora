@@ -47,6 +47,9 @@
                         {{ strtoupper(substr(auth()->guard('admin')->user()->nama ?? 'A', 0, 1)) }}
                     </div>
                     <span class="text-sm font-medium">{{ auth()->guard('admin')->user()->nama ?? 'Admin' }}</span>
+                    <a href="{{ route('admin.akun.edit', auth()->guard('admin')->id()) }}" class="text-sm text-decora-brown font-medium hover:underline ml-2">
+                        Edit Profil
+                    </a>
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
                         <button class="text-sm text-red-600 font-medium ml-2">Logout</button>
@@ -55,20 +58,48 @@
             </header>
 
             <main class="flex-1 p-6 overflow-x-auto">
-                @if (session('success'))
-                    <div class="mb-4 text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg p-3">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if (session('error'))
-                    <div class="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
-                        {{ session('error') }}
-                    </div>
-                @endif
-
                 {{ $slot }}
             </main>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                toast: true, position: 'top-end', icon: 'success',
+                title: @json(session('success')),
+                showConfirmButton: false, timer: 3000, timerProgressBar: true,
+            });
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                toast: true, position: 'top-end', icon: 'error',
+                title: @json(session('error')),
+                showConfirmButton: false, timer: 3500, timerProgressBar: true,
+            });
+        </script>
+    @endif
+
+    <script>
+        function konfirmasiHapus(formId, nama, pesan) {
+            Swal.fire({
+                title: 'Hapus data ini?',
+                text: (pesan || nama + ' akan dihapus permanen.'),
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#6B4E3D',
+                cancelButtonColor: '#9CA3AF',
+                confirmButtonText: 'Ya, hapus',
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(formId).submit();
+                }
+            });
+        }
+    </script>
 </body>
 </html>

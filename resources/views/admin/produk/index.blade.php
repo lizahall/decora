@@ -32,9 +32,9 @@
                         <td class="px-4 py-3 space-x-3 whitespace-nowrap">
                             <a href="{{ route('admin.produk.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">Detail</a>
                             <a href="{{ route('admin.produk.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">Edit</a>
-                            <form action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus produk ini?')">
+                            <form id="hapus-produk-{{ $item->id }}" action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" class="inline">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="text-red-600 font-medium hover:underline">Hapus</button>
+                                <button type="button" onclick="konfirmasiHapus('hapus-produk-{{ $item->id }}', '{{ addslashes($item->nama) }}')" class="text-red-600 font-medium hover:underline">Hapus</button>
                             </form>
                         </td>
                     </tr>

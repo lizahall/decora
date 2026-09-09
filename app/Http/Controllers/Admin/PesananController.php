@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class PesananController extends Controller
 {
-    // Menampilkan semua pesanan dari seluruh user (skenario "Kelola Data Pesanan")
     public function index(Request $request)
     {
         $query = Pesanan::with('user');
@@ -22,7 +21,7 @@ class PesananController extends Controller
         return view('admin.pesanan.index', compact('pesanan'));
     }
 
-    // Detail satu pesanan beserta rincian barangnya
+    // Detail read-only, TIDAK bisa ubah apapun
     public function show(Pesanan $pesanan)
     {
         $pesanan->load('detailPesanan.produk', 'user');
@@ -30,7 +29,14 @@ class PesananController extends Controller
         return view('admin.pesanan.show', compact('pesanan'));
     }
 
-    // Ubah status pesanan (menunggu -> diproses -> dikemas -> dikirim -> selesai / dibatalkan)
+    // Halaman khusus buat ubah status
+    public function edit(Pesanan $pesanan)
+    {
+        $pesanan->load('detailPesanan.produk', 'user');
+
+        return view('admin.pesanan.edit', compact('pesanan'));
+    }
+
     public function updateStatus(Request $request, Pesanan $pesanan)
     {
         $validated = $request->validate([
@@ -39,6 +45,7 @@ class PesananController extends Controller
 
         $pesanan->update($validated);
 
-        return back()->with('success', 'Status pesanan berhasil diperbarui.');
+        return redirect()->route('admin.pesanan.show', $pesanan->id)
+            ->with('success', 'Status pesanan berhasil diperbarui.');
     }
 }

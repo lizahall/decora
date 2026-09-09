@@ -31,8 +31,9 @@
                         <td class="px-4 py-3 text-decora-text/70">{{ $item->created_at->format('d/m/Y H:i') }}</td>
                         <td class="px-4 py-3 text-decora-text/70">Rp {{ number_format($item->total_harga, 0, ',', '.') }}</td>
                         <td class="px-4 py-3"><x-status-badge :status="$item->status_pesanan" /></td>
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 space-x-3 whitespace-nowrap">
                             <a href="{{ route('admin.pesanan.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">Detail</a>
+                            <a href="{{ route('admin.pesanan.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">Edit</a>
                         </td>
                     </tr>
                 @empty

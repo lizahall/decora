@@ -2,18 +2,29 @@
 
     <div class="flex items-center justify-between mb-5">
         <h1 class="text-xl font-bold text-decora-text">Pesanan #{{ $pesanan->id }}</h1>
-        <a href="{{ route('admin.pesanan.index') }}" class="text-sm text-decora-brown font-medium hover:underline">← Kembali</a>
+        <div class="flex items-center gap-3">
+            <a href="{{ route('admin.pesanan.edit', $pesanan->id) }}" class="text-sm bg-decora-sage/40 text-decora-brown-dark px-4 py-2 rounded-lg font-medium hover:bg-decora-sage/60 transition">
+                Edit Status
+            </a>
+            <a href="{{ route('admin.pesanan.index') }}" class="text-sm text-decora-brown font-medium hover:underline">← Kembali</a>
+        </div>
     </div>
 
-    <div class="bg-white border border-decora-cream-dark rounded-xl p-5 mb-5 text-sm space-y-1">
-        <p><span class="text-decora-text/50">User:</span> {{ $pesanan->user->nama }} ({{ $pesanan->user->email }})</p>
-        <p><span class="text-decora-text/50">Alamat Pengiriman:</span> {{ $pesanan->alamat_pengiriman }}</p>
-        <p><span class="text-decora-text/50">No. Telepon:</span> {{ $pesanan->no_telepon }}</p>
-        <p><span class="text-decora-text/50">Metode Pembayaran:</span> {{ $pesanan->metode_pembayaran }}</p>
-        <p><span class="text-decora-text/50">Tanggal:</span> {{ $pesanan->created_at->format('d/m/Y H:i') }}</p>
+    <div class="bg-white border border-decora-cream-dark rounded-xl p-5 mb-5">
+        <div class="flex items-center justify-between mb-4">
+            <p class="text-sm text-decora-text/50">Status Pesanan</p>
+            <x-status-badge :status="$pesanan->status_pesanan" />
+        </div>
+        <dl class="text-sm space-y-2">
+            <div class="flex justify-between"><dt class="text-decora-text/50">User</dt><dd class="text-decora-text">{{ $pesanan->user->nama }} ({{ $pesanan->user->email }})</dd></div>
+            <div class="flex justify-between"><dt class="text-decora-text/50">Alamat Pengiriman</dt><dd class="text-decora-text text-right max-w-xs">{{ $pesanan->alamat_pengiriman }}</dd></div>
+            <div class="flex justify-between"><dt class="text-decora-text/50">No. Telepon</dt><dd class="text-decora-text">{{ $pesanan->no_telepon }}</dd></div>
+            <div class="flex justify-between"><dt class="text-decora-text/50">Metode Pembayaran</dt><dd class="text-decora-text">{{ $pesanan->metode_pembayaran }}</dd></div>
+            <div class="flex justify-between"><dt class="text-decora-text/50">Tanggal Pesanan</dt><dd class="text-decora-text">{{ $pesanan->created_at->translatedFormat('d F Y, H:i') }}</dd></div>
+        </dl>
     </div>
 
-    <div class="bg-white border border-decora-cream-dark rounded-xl overflow-hidden mb-5">
+    <div class="bg-white border border-decora-cream-dark rounded-xl overflow-hidden">
         @foreach ($pesanan->detailPesanan as $detail)
             <div class="flex items-center justify-between px-4 py-3 border-b border-decora-cream-dark last:border-b-0">
                 <div>
@@ -27,23 +38,6 @@
             <span>Total</span>
             <span>Rp {{ number_format($pesanan->total_harga, 0, ',', '.') }}</span>
         </div>
-    </div>
-
-    {{-- Satu-satunya bagian yang bisa diubah: status pesanan --}}
-    <div class="bg-white border border-decora-cream-dark rounded-xl p-5">
-        <p class="font-semibold text-decora-text mb-3">Ubah Status Pesanan</p>
-        <form method="POST" action="{{ route('admin.pesanan.updateStatus', $pesanan->id) }}" class="flex items-end gap-3">
-            @csrf
-            @method('PATCH')
-            <div>
-                <select name="status_pesanan" class="border-decora-cream-dark rounded-lg focus:border-decora-sage focus:ring-decora-sage">
-                    @foreach (['menunggu', 'diproses', 'dikemas', 'dikirim', 'selesai', 'dibatalkan'] as $status)
-                        <option value="{{ $status }}" {{ $pesanan->status_pesanan === $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <x-button type="submit" variant="primary">Simpan</x-button>
-        </form>
     </div>
 
 </x-admin-layout>
