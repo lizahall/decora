@@ -1,4 +1,8 @@
-<x-admin-layout title="Tambah Produk">
+@extends('layouts.admin')
+
+@section('title', 'Tambah Produk')
+
+@section('content')
 
     <h1 class="text-xl font-bold text-decora-text mb-5">Tambah Produk</h1>
 
@@ -43,4 +47,4 @@
         </div>
     </form>
 
-</x-admin-layout>
+@endsection

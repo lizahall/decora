@@ -1,4 +1,8 @@
-<x-admin-layout title="Tambah Admin">
+@extends('layouts.admin')
+
+@section('title', 'Tambah Admin')
+
+@section('content')
 
     <h1 class="text-xl font-bold text-decora-text mb-5">Tambah Akun Admin</h1>
 
@@ -32,4 +36,4 @@
         </div>
     </form>
 
-</x-admin-layout>
+@endsection

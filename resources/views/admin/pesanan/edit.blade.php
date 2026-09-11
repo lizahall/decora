@@ -1,4 +1,8 @@
-<x-admin-layout title="Edit Status Pesanan">
+@extends('layouts.admin')
+
+@section('title', 'Edit Status Pesanan')
+
+@section('content')
 
     <div class="flex items-center justify-between mb-5">
         <h1 class="text-xl font-bold text-decora-text">Edit Status Pesanan #{{ $pesanan->id }}</h1>
@@ -28,4 +32,4 @@
         </form>
     </div>
 
-</x-admin-layout>
+@endsection

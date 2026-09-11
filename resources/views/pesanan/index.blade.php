@@ -1,4 +1,9 @@
-<x-shop-layout title="Riwayat Pesanan">
+@extends('layouts.shop')
+
+@section('title', 'Riwayat Pesanan')
+
+@section('content')
+
     <div class="max-w-4xl mx-auto px-4 py-10">
 
         <h1 class="text-2xl font-bold text-decora-text mb-6">Riwayat Pesanan</h1>
@@ -44,4 +49,5 @@
 
         <div class="mt-6">{{ $pesanan->links() }}</div>
     </div>
-</x-shop-layout>
+
+@endsection

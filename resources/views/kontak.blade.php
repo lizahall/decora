@@ -1,4 +1,8 @@
-<x-shop-layout title="Kontak">
+@extends('layouts.shop')
+
+@section('title', 'Kontak')
+
+@section('content')
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -42,16 +46,7 @@
                 </div>
                 <h3 class="font-bold text-decora-text mb-2">Jam Operasional</h3>
                 <p class="text-sm text-decora-text/60 mb-1">Senin - Sabtu: 09.00 - 18.00 WIB</p>
-                <p class="text-xs text-decora-text/50 mb-4">Minggu: Tutup</p>
-
-                @php
-                    $sekarang = \Carbon\Carbon::now();
-                    $sedangBuka = $sekarang->dayOfWeek !== 0 && $sekarang->format('H:i') >= '09:00' && $sekarang->format('H:i') <= '18:00';
-                @endphp
-                <div class="inline-flex items-center gap-2 text-sm font-medium {{ $sedangBuka ? 'text-green-600' : 'text-red-500' }}">
-                    <span class="w-2 h-2 rounded-full {{ $sedangBuka ? 'bg-green-500' : 'bg-red-400' }} animate-pulse"></span>
-                    <span>{{ $sedangBuka ? 'Sedang Buka' : 'Sedang Tutup' }}</span>
-                </div>
+                <p class="text-xs text-decora-text/50">Minggu: Tutup</p>
             </div>
         </div>
 
@@ -91,4 +86,4 @@
 
     </div>
 
-</x-shop-layout>
+@endsection

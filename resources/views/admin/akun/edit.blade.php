@@ -1,4 +1,8 @@
-<x-admin-layout title="Edit Admin">
+@extends('layouts.admin')
+
+@section('title', 'Edit Admin')
+
+@section('content')
 
     <h1 class="text-xl font-bold text-decora-text mb-5">Edit Akun Admin</h1>
 
@@ -34,4 +38,4 @@
         </div>
     </form>
 
-</x-admin-layout>
+@endsection

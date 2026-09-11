@@ -1,4 +1,9 @@
-<x-shop-layout title="Keranjang">
+@extends('layouts.shop')
+
+@section('title', 'Keranjang')
+
+@section('content')
+
     <div class="max-w-6xl mx-auto px-4 py-10">
         <h1 class="text-2xl font-bold text-decora-text mb-6">Keranjang Belanja</h1>
 
@@ -12,7 +17,6 @@
 
                 {{-- Daftar Item --}}
                 <div class="lg:col-span-2 bg-white rounded-xl border border-decora-cream-dark">
-
                     <div class="flex items-center gap-3 px-4 py-3 border-b border-decora-cream-dark">
                         <input type="checkbox" id="pilih-semua" checked
                                class="w-4 h-4 rounded border-decora-cream-dark text-decora-brown focus:ring-decora-sage">
@@ -87,69 +91,72 @@
         @endif
     </div>
 
-    <script>
-        function formatRupiah(angka) {
-            return 'Rp ' + angka.toLocaleString('id-ID');
-        }
+@endsection
 
-        function hitungUlangRingkasan() {
-            const checkboxes = document.querySelectorAll('.item-checkbox');
-            let total = 0;
-            let jumlahProduk = 0;
+@push('scripts')
+<script>
+    function formatRupiah(angka) {
+        return 'Rp ' + angka.toLocaleString('id-ID');
+    }
 
-            checkboxes.forEach(cb => {
-                if (cb.checked) {
-                    total += parseInt(cb.dataset.subtotal);
-                    jumlahProduk += 1;
-                }
-            });
+    function hitungUlangRingkasan() {
+        const checkboxes = document.querySelectorAll('.item-checkbox');
+        let total = 0;
+        let jumlahProduk = 0;
 
-            document.getElementById('label-jumlah-terpilih').textContent = `Subtotal (${jumlahProduk} produk)`;
-            document.getElementById('teks-subtotal').textContent = formatRupiah(total);
-            document.getElementById('teks-total').textContent = formatRupiah(total);
-
-            const pilihSemua = document.getElementById('pilih-semua');
-            pilihSemua.checked = jumlahProduk === checkboxes.length;
-        }
-
-        document.querySelectorAll('.item-checkbox').forEach(cb => {
-            cb.addEventListener('change', hitungUlangRingkasan);
-        });
-
-        document.getElementById('pilih-semua')?.addEventListener('change', function () {
-            document.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = this.checked);
-            hitungUlangRingkasan();
-        });
-
-        document.getElementById('btn-checkout')?.addEventListener('click', function () {
-            const terpilih = Array.from(document.querySelectorAll('.item-checkbox:checked')).map(cb => cb.dataset.id);
-
-            if (terpilih.length === 0) {
-                document.getElementById('peringatan-kosong').classList.remove('hidden');
-                return;
+        checkboxes.forEach(cb => {
+            if (cb.checked) {
+                total += parseInt(cb.dataset.subtotal);
+                jumlahProduk += 1;
             }
-
-            const params = terpilih.map(id => `keranjang_ids[]=${id}`).join('&');
-            window.location = `{{ route('checkout.create') }}?${params}`;
         });
 
-        hitungUlangRingkasan();
+        document.getElementById('label-jumlah-terpilih').textContent = `Subtotal (${jumlahProduk} produk)`;
+        document.getElementById('teks-subtotal').textContent = formatRupiah(total);
+        document.getElementById('teks-total').textContent = formatRupiah(total);
 
-        function konfirmasiHapus(id, nama) {
-            Swal.fire({
-                title: 'Hapus produk ini?',
-                text: nama + ' akan dihapus dari keranjang.',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#6B4E3D',
-                cancelButtonColor: '#9CA3AF',
-                confirmButtonText: 'Ya, hapus',
-                cancelButtonText: 'Batal',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('hapus-form-' + id).submit();
-                }
-            });
+        const pilihSemua = document.getElementById('pilih-semua');
+        pilihSemua.checked = jumlahProduk === checkboxes.length;
+    }
+
+    document.querySelectorAll('.item-checkbox').forEach(cb => {
+        cb.addEventListener('change', hitungUlangRingkasan);
+    });
+
+    document.getElementById('pilih-semua')?.addEventListener('change', function () {
+        document.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = this.checked);
+        hitungUlangRingkasan();
+    });
+
+    document.getElementById('btn-checkout')?.addEventListener('click', function () {
+        const terpilih = Array.from(document.querySelectorAll('.item-checkbox:checked')).map(cb => cb.dataset.id);
+
+        if (terpilih.length === 0) {
+            document.getElementById('peringatan-kosong').classList.remove('hidden');
+            return;
         }
-    </script>
-</x-shop-layout>
+
+        const params = terpilih.map(id => `keranjang_ids[]=${id}`).join('&');
+        window.location = `{{ route('checkout.create') }}?${params}`;
+    });
+
+    hitungUlangRingkasan();
+
+    function konfirmasiHapus(id, nama) {
+        Swal.fire({
+            title: 'Hapus produk ini?',
+            text: nama + ' akan dihapus dari keranjang.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#6B4E3D',
+            cancelButtonColor: '#9CA3AF',
+            confirmButtonText: 'Ya, hapus',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('hapus-form-' + id).submit();
+            }
+        });
+    }
+</script>
+@endpush

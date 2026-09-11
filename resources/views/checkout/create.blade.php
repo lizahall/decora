@@ -1,4 +1,9 @@
-<x-shop-layout title="Checkout">
+@extends('layouts.shop')
+
+@section('title', 'Checkout')
+
+@section('content')
+
     <div class="max-w-6xl mx-auto px-4 py-10">
 
         <h1 class="text-2xl font-bold text-decora-text mb-6">Checkout</h1>
@@ -91,4 +96,5 @@
             </div>
         </form>
     </div>
-</x-shop-layout>
+
+@endsection

@@ -1,4 +1,8 @@
-<x-shop-layout title="Katalog Produk">
+@extends('layouts.shop')
+
+@section('title', 'Katalog Produk')
+
+@section('content')
 
     <x-page-hero title="Katalog Produk" subtitle="Temukan berbagai furniture dan dekorasi sesuai kebutuhanmu" />
 
@@ -37,4 +41,5 @@
         <div class="mt-8">{{ $produk->links() }}</div>
 
     </div>
-</x-shop-layout>
+
+@endsection

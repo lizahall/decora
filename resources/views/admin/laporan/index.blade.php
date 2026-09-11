@@ -1,4 +1,8 @@
-<x-admin-layout title="Laporan Penjualan">
+@extends('layouts.admin')
+
+@section('title', 'Laporan Penjualan')
+
+@section('content')
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -99,4 +103,4 @@
         </script>
     @endif
 
-</x-admin-layout>
+@endsection

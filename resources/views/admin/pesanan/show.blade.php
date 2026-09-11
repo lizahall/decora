@@ -1,4 +1,8 @@
-<x-admin-layout title="Detail Pesanan">
+@extends('layouts.admin')
+
+@section('title', 'Detail Pesanan')
+
+@section('content')
 
     <div class="flex items-center justify-between mb-5">
         <h1 class="text-xl font-bold text-decora-text">Pesanan #{{ $pesanan->id }}</h1>
@@ -40,4 +44,4 @@
         </div>
     </div>
 
-</x-admin-layout>
+@endsection

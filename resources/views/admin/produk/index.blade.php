@@ -1,4 +1,8 @@
-<x-admin-layout title="Data Produk">
+@extends('layouts.admin')
+
+@section('title', 'Data Produk')
+
+@section('content')
 
     <div class="flex items-center justify-between mb-5">
         <h1 class="text-xl font-bold text-decora-text">Data Produk</h1>
@@ -47,4 +51,4 @@
 
     <div class="mt-4">{{ $produk->links() }}</div>
 
-</x-admin-layout>
+@endsection

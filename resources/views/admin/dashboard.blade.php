@@ -1,4 +1,8 @@
-<x-admin-layout title="Dashboard">
+@extends('layouts.admin')
+
+@section('title', 'Dashboard')
+
+@section('content')
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -19,7 +23,9 @@
 
     <div class="bg-white border border-decora-cream-dark rounded-xl p-5 mb-6">
         <p class="font-semibold text-decora-text mb-4">Grafik Penjualan (7 Hari Terakhir)</p>
-        <canvas id="chartPenjualan" height="90"></canvas>
+        <div class="h-64">
+            <canvas id="chartPenjualan"></canvas>
+        </div>
     </div>
 
     <div class="bg-white border border-decora-cream-dark rounded-xl p-5">
@@ -42,6 +48,8 @@
                     }]
                 },
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: { y: { beginAtZero: true } }
                 }
@@ -49,4 +57,4 @@
         });
     </script>
 
-</x-admin-layout>
+@endsection

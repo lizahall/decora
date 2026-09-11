@@ -1,4 +1,8 @@
-<x-admin-layout title="Detail Produk">
+@extends('layouts.admin')
+
+@section('title', 'Detail Produk')
+
+@section('content')
 
     <h1 class="text-xl font-bold text-decora-text mb-5">Detail Produk</h1>
 
@@ -57,4 +61,4 @@
         </a>
     </div>
 
-</x-admin-layout>
+@endsection

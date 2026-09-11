@@ -1,4 +1,9 @@
-<x-shop-layout title="Detail Produk">
+@extends('layouts.shop')
+
+@section('title', 'Detail Produk')
+
+@section('content')
+
     <div class="max-w-6xl mx-auto px-4 py-10">
 
         {{-- Breadcrumb --}}
@@ -107,15 +112,19 @@
                 </div>
             </div>
         </div>
+    </div>
 
-    <script>
-        function ubahJumlah(delta) {
-            const input = document.getElementById('jumlah-input');
-            let val = parseInt(input.value) + delta;
-            const max = parseInt(input.max);
-            if (val < 1) val = 1;
-            if (val > max) val = max;
-            input.value = val;
-        }
-    </script>
-</x-shop-layout>
+@endsection
+
+@push('scripts')
+<script>
+    function ubahJumlah(delta) {
+        const input = document.getElementById('jumlah-input');
+        let val = parseInt(input.value) + delta;
+        const max = parseInt(input.max);
+        if (val < 1) val = 1;
+        if (val > max) val = max;
+        input.value = val;
+    }
+</script>
+@endpush

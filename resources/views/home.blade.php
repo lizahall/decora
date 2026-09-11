@@ -1,4 +1,8 @@
-<x-shop-layout title="Beranda">
+@extends('layouts.shop')
+
+@section('title', 'Beranda')
+
+@section('content')
 
     {{-- Hero Section: full-bleed foto dominan, teks rata kiri --}}
     <div class="relative h-[420px] sm:h-[520px] overflow-hidden">
@@ -73,4 +77,4 @@
         </div>
     </div>
 
-</x-shop-layout>
+@endsection

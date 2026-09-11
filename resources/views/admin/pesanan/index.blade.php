@@ -1,4 +1,8 @@
-<x-admin-layout title="Data Pesanan">
+@extends('layouts.admin')
+
+@section('title', 'Data Pesanan')
+
+@section('content')
 
     <h1 class="text-xl font-bold text-decora-text mb-5">Data Pesanan</h1>
 
@@ -45,4 +49,4 @@
 
     <div class="mt-4">{{ $pesanan->links() }}</div>
 
-</x-admin-layout>
+@endsection

@@ -1,4 +1,9 @@
-<x-shop-layout title="Detail Pesanan">
+@extends('layouts.shop')
+
+@section('title', 'Detail Pesanan')
+
+@section('content')
+
     <div class="max-w-2xl mx-auto px-4 py-10">
 
         <a href="{{ route('pesanan.index') }}" class="text-sm text-decora-brown font-medium hover:underline">← Kembali ke Riwayat Pesanan</a>
@@ -68,4 +73,5 @@
 
         </div>
     </div>
-</x-shop-layout>
+
+@endsection
