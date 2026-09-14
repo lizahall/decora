@@ -8,7 +8,7 @@
 
     <form method="GET" class="mb-4">
         <select name="status" onchange="this.form.submit()" class="border-decora-cream-dark rounded-lg text-sm focus:border-decora-sage focus:ring-decora-sage">
-            <option value="">-- Semua Status --</option>
+            <option value=""> Semua Status </option>
             @foreach (['menunggu', 'diproses', 'dikemas', 'dikirim', 'selesai', 'dibatalkan'] as $status)
                 <option value="{{ $status }}" {{ request('status') === $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
             @endforeach

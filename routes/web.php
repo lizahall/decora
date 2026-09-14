@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
     Route::get('/pesanan/{pesanan}', [PesananController::class, 'show'])->name('pesanan.show');
+    Route::post('/pesanan/{pesanan}/bukti-pembayaran', [PesananController::class, 'uploadBukti'])->name('pesanan.uploadBukti');
 });
 
 require __DIR__.'/auth.php';

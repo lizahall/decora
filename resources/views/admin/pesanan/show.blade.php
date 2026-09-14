@@ -28,6 +28,21 @@
         </dl>
     </div>
 
+    {{-- Bukti Pembayaran --}}
+    @if ($pesanan->metode_pembayaran !== 'COD')
+        <div class="bg-white border border-decora-cream-dark rounded-xl p-5 mb-5">
+            <p class="font-semibold text-decora-text mb-3">Bukti Pembayaran</p>
+            @if ($pesanan->bukti_pembayaran)
+                <a href="{{ asset('storage/'.$pesanan->bukti_pembayaran) }}" target="_blank">
+                    <img src="{{ asset('storage/'.$pesanan->bukti_pembayaran) }}" class="max-w-xs rounded-lg border border-decora-cream-dark hover:opacity-90 transition">
+                </a>
+                <p class="text-xs text-decora-text/50 mt-2">Klik gambar untuk memperbesar.</p>
+            @else
+                <p class="text-sm text-decora-text/50">Belum ada bukti pembayaran yang diunggah user.</p>
+            @endif
+        </div>
+    @endif
+
     <div class="bg-white border border-decora-cream-dark rounded-xl overflow-hidden">
         @foreach ($pesanan->detailPesanan as $detail)
             <div class="flex items-center justify-between px-4 py-3 border-b border-decora-cream-dark last:border-b-0">

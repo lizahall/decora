@@ -64,12 +64,43 @@
             </div>
 
             {{-- Informasi Pengiriman --}}
-            <div class="bg-decora-cream/60 rounded-xl p-5 text-sm space-y-2">
+            <div class="bg-decora-cream/60 rounded-xl p-5 text-sm space-y-2 mb-6">
                 <p class="font-semibold text-decora-text mb-1">Informasi Pengiriman</p>
                 <p><span class="text-decora-text/50">Alamat:</span> {{ $pesanan->alamat_pengiriman }}</p>
                 <p><span class="text-decora-text/50">No. Telepon:</span> {{ $pesanan->no_telepon }}</p>
                 <p><span class="text-decora-text/50">Metode Pembayaran:</span> {{ $pesanan->metode_pembayaran }}</p>
             </div>
+
+            {{-- Upload Bukti Pembayaran (Transfer Bank / E-Wallet, bukan COD) --}}
+            @if ($pesanan->metode_pembayaran !== 'COD')
+                <div class="border border-decora-cream-dark rounded-xl p-5">
+                    <p class="font-semibold text-decora-text mb-3">Bukti Pembayaran</p>
+
+                    @if ($pesanan->bukti_pembayaran)
+                        <div class="mb-4">
+                            <img src="{{ asset('storage/'.$pesanan->bukti_pembayaran) }}" class="max-w-xs rounded-lg border border-decora-cream-dark">
+                            <p class="text-xs text-decora-text/50 mt-2">
+                                @if ($pesanan->status_pesanan === 'menunggu')
+                                    Menunggu verifikasi admin.
+                                @else
+                                    Bukti pembayaran sudah terverifikasi.
+                                @endif
+                            </p>
+                        </div>
+                    @endif
+
+                    @if ($pesanan->status_pesanan === 'menunggu')
+                        <form action="{{ route('pesanan.uploadBukti', $pesanan->id) }}" method="POST" enctype="multipart/form-data" class="flex flex-col sm:flex-row items-start sm:items-end gap-3">
+                            @csrf
+                            <div class="flex-1 w-full">
+                                <x-input-label value="{{ $pesanan->bukti_pembayaran ? 'Ganti Bukti Pembayaran' : 'Upload Bukti Pembayaran' }}" />
+                                <input type="file" name="bukti_pembayaran" class="w-full text-sm" required>
+                            </div>
+                            <x-button type="submit" variant="primary">Upload</x-button>
+                        </form>
+                    @endif
+                </div>
+            @endif
 
         </div>
     </div>

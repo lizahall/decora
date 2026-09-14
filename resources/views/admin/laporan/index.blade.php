@@ -48,7 +48,9 @@
     <div class="bg-white border border-decora-cream-dark rounded-xl p-5 mb-6">
         <p class="font-semibold text-decora-text mb-4">Tren Pendapatan Harian</p>
         @if (count($labelGrafik) > 0)
-            <canvas id="chartLaporan" height="90"></canvas>
+            <div class="h-64">
+                <canvas id="chartLaporan"></canvas>
+            </div>
         @else
             <p class="text-sm text-decora-text/50 text-center py-10">Rentang tanggal terlalu panjang untuk ditampilkan sebagai grafik (maks. 60 hari).</p>
         @endif
@@ -95,6 +97,8 @@
                         }]
                     },
                     options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
                         plugins: { legend: { display: false } },
                         scales: { y: { beginAtZero: true } }
                     }
