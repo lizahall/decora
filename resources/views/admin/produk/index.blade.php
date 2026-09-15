@@ -33,13 +33,24 @@
                         <td class="px-4 py-3 text-decora-text/70">{{ $item->kategori }}</td>
                         <td class="px-4 py-3 text-decora-text/70">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                         <td class="px-4 py-3 text-decora-text/70">{{ $item->stok }}</td>
-                        <td class="px-4 py-3 space-x-3 whitespace-nowrap">
-                            <a href="{{ route('admin.produk.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">Detail</a>
-                            <a href="{{ route('admin.produk.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">Edit</a>
-                            <form id="hapus-produk-{{ $item->id }}" action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" class="inline">
-                                @csrf @method('DELETE')
-                                <button type="button" onclick="konfirmasiHapus('hapus-produk-{{ $item->id }}', '{{ addslashes($item->nama) }}')" class="text-red-600 font-medium hover:underline">Hapus</button>
-                            </form>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center gap-2">
+                                <a href="{{ route('admin.produk.show', $item->id) }}" title="Detail"
+                                   class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-decora-sage/30 text-decora-brown-dark hover:bg-decora-sage/50 transition">
+                                    <i class="fas fa-search text-xs"></i>
+                                </a>
+                                <a href="{{ route('admin.produk.edit', $item->id) }}" title="Edit"
+                                   class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-200 transition">
+                                    <i class="fas fa-pen text-xs"></i>
+                                </a>
+                                <form id="hapus-produk-{{ $item->id }}" action="{{ route('admin.produk.destroy', $item->id) }}" method="POST">
+                                    @csrf @method('DELETE')
+                                    <button type="button" onclick="konfirmasiHapus('hapus-produk-{{ $item->id }}', '{{ addslashes($item->nama) }}')" title="Hapus"
+                                            class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition">
+                                        <i class="fas fa-trash text-xs"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty
