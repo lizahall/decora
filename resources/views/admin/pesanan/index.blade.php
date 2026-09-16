@@ -36,8 +36,12 @@
                         <td class="px-4 py-3 text-decora-text/70">Rp {{ number_format($item->total_harga, 0, ',', '.') }}</td>
                         <td class="px-4 py-3"><x-status-badge :status="$item->status_pesanan" /></td>
                         <td class="px-4 py-3 space-x-3 whitespace-nowrap">
-                            <a href="{{ route('admin.pesanan.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">Detail</a>
-                            <a href="{{ route('admin.pesanan.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">Edit</a>
+                            <a href="{{ route('admin.pesanan.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">
+                                <i class="fas fa-search text-xs"></i>
+                            </a>
+                            <a href="{{ route('admin.pesanan.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">
+                                <i class="fas fa-edit text-xs"></i>
+                            </a>
                         </td>
                     </tr>
                 @empty
