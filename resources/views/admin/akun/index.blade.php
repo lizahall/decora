@@ -28,11 +28,17 @@
                         <td class="px-4 py-3 font-medium text-decora-text">{{ $item->nama }}</td>
                         <td class="px-4 py-3 text-decora-text/70">{{ $item->email }}</td>
                         <td class="px-4 py-3 space-x-3">
-                            <a href="{{ route('admin.akun.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">Detail</a>
-                            <a href="{{ route('admin.akun.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">Edit</a>
+                            <a href="{{ route('admin.akun.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">
+                                <i class="fas fa-search text-xs"></i>
+                            </a>
+                            <a href="{{ route('admin.akun.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">
+                                <i class="fas fa-edit text-xs"></i>
+                            </a>
                             <form id="hapus-akun-{{ $item->id }}" action="{{ route('admin.akun.destroy', $item->id) }}" method="POST" class="inline">
                                 @csrf @method('DELETE')
-                                <button type="button" onclick="konfirmasiHapus('hapus-akun-{{ $item->id }}', '{{ addslashes($item->nama) }}')" class="text-red-600 font-medium hover:underline">Hapus</button>
+                                <button type="button" onclick="konfirmasiHapus('hapus-akun-{{ $item->id }}', '{{ addslashes($item->nama) }}')" class="text-red-600 font-medium hover:underline">
+                                    <i class="fas fa-trash text-xs"></i>
+                                </button>
                             </form>
                         </td>
                     </tr>
