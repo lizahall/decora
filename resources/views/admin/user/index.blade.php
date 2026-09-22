@@ -32,12 +32,13 @@
                         <td class="px-4 py-3 text-decora-text/70">{{ $user->no_telepon ?? '-' }}</td>
                         <td class="px-4 py-3 text-decora-text/70">{{ $user->created_at->format('d/m/Y') }}</td>
                         <td class="px-4 py-3 space-x-3 whitespace-nowrap">
-                            <a href="{{ route('admin.user.show', $user->id) }}" class="text-decora-brown font-medium hover:underline">
+                            <a href="{{ route('admin.user.show', $user->id) }}" 
+                                class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-decora-sage/30 text-decora-brown-dark hover:bg-decora-sage/50 transition">
                                 <i class="fas fa-search text-xs"></i>
                             </a>
                             <form id="hapus-user-{{ $user->id }}" action="{{ route('admin.user.destroy', $user->id) }}" method="POST" class="inline">
                                 @csrf @method('DELETE')
-                                <button type="button" onclick="konfirmasiHapus('hapus-user-{{ $user->id }}', '{{ addslashes($user->nama) }}', '{{ addslashes($user->nama) }} beserta pesanan & keranjangnya akan dihapus permanen.')" class="text-red-600 font-medium hover:underline">
+                                <button type="button" onclick="konfirmasiHapus('hapus-user-{{ $user->id }}', '{{ addslashes($user->nama) }}', '{{ addslashes($user->nama) }} beserta pesanan & keranjangnya akan dihapus permanen.')" class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition">
                                     <i class="fas fa-trash text-xs"></i>
                                 </button>
                             </form>
