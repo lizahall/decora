@@ -27,19 +27,24 @@
                     <tr class="hover:bg-decora-cream/40">
                         <td class="px-4 py-3 font-medium text-decora-text">{{ $item->nama }}</td>
                         <td class="px-4 py-3 text-decora-text/70">{{ $item->email }}</td>
-                        <td class="px-4 py-3 space-x-3">
-                            <a href="{{ route('admin.akun.show', $item->id) }}" class="text-decora-brown font-medium hover:underline">
-                                <i class="fas fa-search text-xs"></i>
-                            </a>
-                            <a href="{{ route('admin.akun.edit', $item->id) }}" class="text-blue-600 font-medium hover:underline">
-                                <i class="fas fa-edit text-xs"></i>
-                            </a>
-                            <form id="hapus-akun-{{ $item->id }}" action="{{ route('admin.akun.destroy', $item->id) }}" method="POST" class="inline">
-                                @csrf @method('DELETE')
-                                <button type="button" onclick="konfirmasiHapus('hapus-akun-{{ $item->id }}', '{{ addslashes($item->nama) }}')" class="text-red-600 font-medium hover:underline">
-                                    <i class="fas fa-trash text-xs"></i>
-                                </button>
-                            </form>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center gap-2">
+                                <a href="{{ route('admin.akun.show', $item->id) }}" title="Detail"
+                                   class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-decora-sage/30 text-decora-brown-dark hover:bg-decora-sage/50 transition">
+                                    <i class="fas fa-search text-xs"></i>
+                                </a>
+                                <a href="{{ route('admin.akun.edit', $item->id) }}" title="Edit"
+                                   class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-200 transition">
+                                    <i class="fas fa-edit text-xs"></i>
+                                </a>
+                                <form id="hapus-akun-{{ $item->id }}" action="{{ route('admin.akun.destroy', $item->id) }}" method="POST">
+                                    @csrf @method('DELETE')
+                                    <button type="button" onclick="konfirmasiHapus('hapus-akun-{{ $item->id }}', '{{ addslashes($item->nama) }}')" title="Hapus"
+                                            class="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition">
+                                        <i class="fas fa-trash text-xs"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty
