@@ -54,10 +54,12 @@
                     <div class="bg-white rounded-xl border border-decora-cream-dark p-5">
                         <p class="font-semibold text-decora-text mb-4">Metode Pembayaran</p>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
                             @foreach (['Transfer Bank' => '🏦', 'E-Wallet' => '📱', 'COD' => '💵'] as $metode => $icon)
                                 <label class="cursor-pointer">
-                                    <input type="radio" name="metode_pembayaran" value="{{ $metode }}" class="peer hidden" required
+                                    <input type="radio" name="metode_pembayaran" value="{{ $metode }}"
+                                           class="peer hidden metode-radio" required
+                                           onchange="tampilkanInfoPembayaran('{{ $metode }}')"
                                            {{ old('metode_pembayaran') === $metode ? 'checked' : '' }}>
                                     <div class="border-2 border-decora-cream-dark rounded-lg p-4 text-center peer-checked:border-decora-brown peer-checked:bg-decora-cream transition">
                                         <div class="text-2xl mb-1">{{ $icon }}</div>
@@ -65,6 +67,25 @@
                                     </div>
                                 </label>
                             @endforeach
+                        </div>
+
+                        {{-- Info tujuan transfer, muncul sesuai metode yang dipilih --}}
+                        <div id="info-transfer-bank" class="info-pembayaran hidden bg-decora-cream/60 rounded-lg p-4 text-sm space-y-2">
+                            <p class="font-semibold text-decora-text mb-1">Transfer ke salah satu rekening berikut:</p>
+                            <p>🏦 <strong>BCA</strong> — 1234567890 a.n. DECORA Indonesia</p>
+                            <p>🏦 <strong>Mandiri</strong> — 0987654321 a.n. DECORA Indonesia</p>
+                            <p>🏦 <strong>BNI</strong> — 1122334455 a.n. DECORA Indonesia</p>
+                            <p class="text-xs text-decora-text/60 pt-1">Setelah transfer, upload bukti pembayaran di halaman Detail Pesanan.</p>
+                        </div>
+
+                        <div id="info-e-wallet" class="info-pembayaran hidden bg-decora-cream/60 rounded-lg p-4 text-sm space-y-2">
+                            <p class="font-semibold text-decora-text mb-1">Kirim ke salah satu e-wallet berikut:</p>
+                            <p>📱 <strong>OVO / GoPay / DANA</strong> — 0812-3456-7890 a.n. DECORA Indonesia</p>
+                            <p class="text-xs text-decora-text/60 pt-1">Setelah transfer, upload bukti pembayaran di halaman Detail Pesanan.</p>
+                        </div>
+
+                        <div id="info-cod" class="info-pembayaran hidden bg-decora-cream/60 rounded-lg p-4 text-sm">
+                            <p class="text-decora-text">💵 Siapkan uang pas sesuai total pembayaran saat kurir tiba.</p>
                         </div>
                     </div>
                 </div>
@@ -96,5 +117,26 @@
             </div>
         </form>
     </div>
+
+    <script>
+        function tampilkanInfoPembayaran(metode) {
+            document.querySelectorAll('.info-pembayaran').forEach(el => el.classList.add('hidden'));
+
+            const mapId = {
+                'Transfer Bank': 'info-transfer-bank',
+                'E-Wallet': 'info-e-wallet',
+                'COD': 'info-cod',
+            };
+
+            const target = document.getElementById(mapId[metode]);
+            if (target) target.classList.remove('hidden');
+        }
+
+        // Kalau ada metode yang udah kepilih sebelumnya (misal habis error validasi), tampilkan info-nya lagi
+        document.addEventListener('DOMContentLoaded', function () {
+            const terpilih = document.querySelector('.metode-radio:checked');
+            if (terpilih) tampilkanInfoPembayaran(terpilih.value);
+        });
+    </script>
 
 @endsection
