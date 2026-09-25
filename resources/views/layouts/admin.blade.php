@@ -18,18 +18,18 @@
             <nav class="flex-1 py-4 text-sm space-y-1 px-3">
                 @php
                     $menu = [
-                        ['route' => 'admin.dashboard', 'active' => 'admin.dashboard', 'icon' => '📊', 'label' => 'Dashboard'],
-                        ['route' => 'admin.produk.index', 'active' => 'admin.produk.*', 'icon' => '🛋️', 'label' => 'Produk'],
-                        ['route' => 'admin.pesanan.index', 'active' => 'admin.pesanan.*', 'icon' => '📦', 'label' => 'Pesanan'],
-                        ['route' => 'admin.user.index', 'active' => 'admin.user.*', 'icon' => '👥', 'label' => 'Data User'],
-                        ['route' => 'admin.akun.index', 'active' => 'admin.akun.*', 'icon' => '🔑', 'label' => 'Data Admin'],
-                        ['route' => 'admin.laporan.index', 'active' => 'admin.laporan.*', 'icon' => '📈', 'label' => 'Laporan Penjualan'],
+                        ['route' => 'admin.dashboard', 'active' => 'admin.dashboard', 'icon' => 'fa-tachometer-alt', 'label' => 'Dashboard'],
+                        ['route' => 'admin.produk.index', 'active' => 'admin.produk.*', 'icon' => 'fa-couch', 'label' => 'Produk'],
+                        ['route' => 'admin.pesanan.index', 'active' => 'admin.pesanan.*', 'icon' => 'fa-box', 'label' => 'Pesanan'],
+                        ['route' => 'admin.user.index', 'active' => 'admin.user.*', 'icon' => 'fa-users', 'label' => 'Data User'],
+                        ['route' => 'admin.akun.index', 'active' => 'admin.akun.*', 'icon' => 'fa-user-shield', 'label' => 'Data Admin'],
+                        ['route' => 'admin.laporan.index', 'active' => 'admin.laporan.*', 'icon' => 'fa-chart-line', 'label' => 'Laporan Penjualan'],
                     ];
                 @endphp
                 @foreach ($menu as $item)
                     <a href="{{ route($item['route']) }}"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition {{ request()->routeIs($item['active']) ? 'bg-white text-decora-brown font-semibold' : 'text-white/80 hover:bg-white/10' }}">
-                        <span>{{ $item['icon'] }}</span>
+                        <i class="fas fa-fw {{ $item['icon'] }}"></i>
                         <span>{{ $item['label'] }}</span>
                     </a>
                 @endforeach
