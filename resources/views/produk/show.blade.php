@@ -104,9 +104,9 @@
 
                     {{-- Badge kepercayaan --}}
                     <div class="flex flex-wrap gap-x-6 gap-y-2 pt-4 border-t border-decora-cream-dark text-xs text-decora-text/60">
-                        <span>🚚 Gratis Ongkir*</span>
-                        <span>↩️ Retur 7 Hari</span>
-                        <span>🔒 Pembayaran Aman</span>
+                        <span><i class="fas fa-award mr-1.5"></i>Produk Berkualitas</span>
+                        <span><i class="fas fa-credit-card mr-1.5"></i>Pembayaran Aman</span>
+                        <span><i class="fas fa-truck mr-1.5"></i>Gratis Ongkir</span>
                     </div>
 
                 </div>

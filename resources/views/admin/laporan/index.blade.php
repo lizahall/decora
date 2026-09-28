@@ -23,22 +23,30 @@
     {{-- 4 kartu ringkasan --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-white border border-decora-cream-dark rounded-xl p-5">
-            <div class="w-10 h-10 rounded-full bg-decora-sage/30 flex items-center justify-center text-lg mb-3">💰</div>
+            <div class="w-10 h-10 rounded-full bg-decora-sage/30 flex items-center justify-center text-decora-brown mb-3">
+                <i class="fas fa-coins"></i>
+            </div>
             <p class="text-sm text-decora-text/50 mb-1">Total Pendapatan</p>
             <p class="text-xl font-bold text-decora-brown">Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</p>
         </div>
         <div class="bg-white border border-decora-cream-dark rounded-xl p-5">
-            <div class="w-10 h-10 rounded-full bg-decora-sage/30 flex items-center justify-center text-lg mb-3">🧾</div>
+            <div class="w-10 h-10 rounded-full bg-decora-sage/30 flex items-center justify-center text-decora-brown mb-3">
+                <i class="fas fa-receipt"></i>
+            </div>
             <p class="text-sm text-decora-text/50 mb-1">Jumlah Transaksi</p>
             <p class="text-xl font-bold text-decora-text">{{ $jumlahPesanan }}</p>
         </div>
         <div class="bg-white border border-decora-cream-dark rounded-xl p-5">
-            <div class="w-10 h-10 rounded-full bg-decora-sage/30 flex items-center justify-center text-lg mb-3">📊</div>
+            <div class="w-10 h-10 rounded-full bg-decora-sage/30 flex items-center justify-center text-decora-brown mb-3">
+                <i class="fas fa-chart-bar"></i>
+            </div>
             <p class="text-sm text-decora-text/50 mb-1">Rata-rata per Transaksi</p>
             <p class="text-xl font-bold text-decora-text">Rp {{ number_format($rataRata, 0, ',', '.') }}</p>
         </div>
         <div class="bg-white border border-decora-cream-dark rounded-xl p-5">
-            <div class="w-10 h-10 rounded-full bg-decora-sage/30 flex items-center justify-center text-lg mb-3">📦</div>
+            <div class="w-10 h-10 rounded-full bg-decora-sage/30 flex items-center justify-center text-decora-brown mb-3">
+                <i class="fas fa-boxes-stacked"></i>
+            </div>
             <p class="text-sm text-decora-text/50 mb-1">Produk Terjual</p>
             <p class="text-xl font-bold text-decora-text">{{ $produkTerjual }}</p>
         </div>

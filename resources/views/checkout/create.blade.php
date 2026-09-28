@@ -4,6 +4,8 @@
 
 @section('content')
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <div class="max-w-6xl mx-auto px-4 py-10">
 
         <h1 class="text-2xl font-bold text-decora-text mb-6">Checkout</h1>
@@ -55,15 +57,15 @@
                         <p class="font-semibold text-decora-text mb-4">Metode Pembayaran</p>
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-                            @foreach (['Transfer Bank' => '🏦', 'E-Wallet' => '📱', 'COD' => '💵'] as $metode => $icon)
+                            @foreach (['Transfer Bank' => 'fa-building-columns', 'E-Wallet' => 'fa-wallet', 'COD' => 'fa-money-bill-wave'] as $metode => $icon)
                                 <label class="cursor-pointer">
                                     <input type="radio" name="metode_pembayaran" value="{{ $metode }}"
                                            class="peer hidden metode-radio" required
                                            onchange="tampilkanInfoPembayaran('{{ $metode }}')"
                                            {{ old('metode_pembayaran') === $metode ? 'checked' : '' }}>
                                     <div class="border-2 border-decora-cream-dark rounded-lg p-4 text-center peer-checked:border-decora-brown peer-checked:bg-decora-cream transition">
-                                        <div class="text-2xl mb-1">{{ $icon }}</div>
-                                        <p class="text-sm font-medium">{{ $metode }}</p>
+                                        <i class="fas {{ $icon }} text-2xl mb-1 text-decora-brown"></i>
+                                        <p class="text-sm font-medium mt-1">{{ $metode }}</p>
                                     </div>
                                 </label>
                             @endforeach
@@ -72,20 +74,20 @@
                         {{-- Info tujuan transfer, muncul sesuai metode yang dipilih --}}
                         <div id="info-transfer-bank" class="info-pembayaran hidden bg-decora-cream/60 rounded-lg p-4 text-sm space-y-2">
                             <p class="font-semibold text-decora-text mb-1">Transfer ke salah satu rekening berikut:</p>
-                            <p>🏦 <strong>BCA</strong> — 1234567890 a.n. DECORA Indonesia</p>
-                            <p>🏦 <strong>Mandiri</strong> — 0987654321 a.n. DECORA Indonesia</p>
-                            <p>🏦 <strong>BNI</strong> — 1122334455 a.n. DECORA Indonesia</p>
+                            <p><i class="fas fa-building-columns text-decora-brown w-4"></i> <strong>BCA</strong> — 1234567890 a.n. DECORA Indonesia</p>
+                            <p><i class="fas fa-building-columns text-decora-brown w-4"></i> <strong>Mandiri</strong> — 0987654321 a.n. DECORA Indonesia</p>
+                            <p><i class="fas fa-building-columns text-decora-brown w-4"></i> <strong>BNI</strong> — 1122334455 a.n. DECORA Indonesia</p>
                             <p class="text-xs text-decora-text/60 pt-1">Setelah transfer, upload bukti pembayaran di halaman Detail Pesanan.</p>
                         </div>
 
                         <div id="info-e-wallet" class="info-pembayaran hidden bg-decora-cream/60 rounded-lg p-4 text-sm space-y-2">
                             <p class="font-semibold text-decora-text mb-1">Kirim ke salah satu e-wallet berikut:</p>
-                            <p>📱 <strong>OVO / GoPay / DANA</strong> — 0812-3456-7890 a.n. DECORA Indonesia</p>
+                            <p><i class="fas fa-wallet text-decora-brown w-4"></i> <strong>OVO / GoPay / DANA</strong> — 0812-3456-7890 a.n. DECORA Indonesia</p>
                             <p class="text-xs text-decora-text/60 pt-1">Setelah transfer, upload bukti pembayaran di halaman Detail Pesanan.</p>
                         </div>
 
                         <div id="info-cod" class="info-pembayaran hidden bg-decora-cream/60 rounded-lg p-4 text-sm">
-                            <p class="text-decora-text">💵 Siapkan uang pas sesuai total pembayaran saat kurir tiba.</p>
+                            <p class="text-decora-text"><i class="fas fa-money-bill-wave text-decora-brown w-4"></i> Siapkan uang pas sesuai total pembayaran saat kurir tiba.</p>
                         </div>
                     </div>
                 </div>
@@ -132,7 +134,6 @@
             if (target) target.classList.remove('hidden');
         }
 
-        // Kalau ada metode yang udah kepilih sebelumnya (misal habis error validasi), tampilkan info-nya lagi
         document.addEventListener('DOMContentLoaded', function () {
             const terpilih = document.querySelector('.metode-radio:checked');
             if (terpilih) tampilkanInfoPembayaran(terpilih.value);

@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body class="bg-decora-cream font-sans text-decora-text">
-    <div class="flex min-h-screen">
+    <div class="flex h-screen overflow-hidden">
 
         {{-- Sidebar --}}
-        <aside class="w-60 bg-decora-brown text-white flex flex-col shrink-0">
-            <div class="h-16 flex items-center justify-center border-b border-white/10 font-bold text-lg tracking-wide">
+        <aside class="w-60 bg-decora-brown text-white flex flex-col shrink-0 overflow-y-auto">
+            <div class="h-16 flex items-center justify-center border-b border-white/10 font-bold text-lg tracking-wide shrink-0">
                 DECORA
             </div>
             <nav class="flex-1 py-4 text-sm space-y-1 px-3">
@@ -37,9 +37,9 @@
         </aside>
 
         {{-- Main --}}
-        <div class="flex-1 flex flex-col min-w-0">
+        <div class="flex-1 flex flex-col min-w-0 h-full">
 
-            {{-- Topbar --}}
+            {{-- Topbar (fixed, tidak ikut scroll) --}}
             <header class="h-16 bg-white border-b border-decora-cream-dark flex items-center justify-between px-6 shrink-0">
                 <p class="font-semibold text-decora-text">@yield('title', 'Dashboard')</p>
 
@@ -58,7 +58,8 @@
                 </div>
             </header>
 
-            <main class="flex-1 p-6 overflow-x-auto">
+            {{-- Hanya area ini yang scroll --}}
+            <main class="flex-1 p-6 overflow-y-auto">
                 @yield('content')
             </main>
         </div>

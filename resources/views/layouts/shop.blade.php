@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'DECORA')</title>
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @keyframes fadeUp {
             0% { opacity: 0; transform: translateY(18px); }
@@ -39,7 +40,7 @@
             {{-- Search bar --}}
             <form action="{{ route('produk.index') }}" method="GET" class="hidden sm:block flex-1 max-w-xs">
                 <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-decora-text/40 text-sm">🔍</span>
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-decora-text/40 text-sm"></i>
                     <input
                         type="text"
                         name="cari"
@@ -53,7 +54,7 @@
             <div class="flex items-center gap-4 text-sm shrink-0">
                 @auth
                     <a href="{{ route('keranjang.index') }}" class="relative text-decora-text/70 hover:text-decora-brown text-lg" title="Keranjang">
-                        🛒
+                        <i class="fas fa-cart-shopping"></i>
                         @php $jumlahKeranjang = auth()->user()->keranjang()->sum('jumlah'); @endphp
                         @if ($jumlahKeranjang > 0)
                             <span class="absolute -top-1.5 -right-2 bg-decora-brown text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">{{ $jumlahKeranjang }}</span>
@@ -99,10 +100,10 @@
 
     <footer class="bg-decora-brown text-white mt-auto">
         <div class="max-w-6xl mx-auto px-4 py-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm">
-            <span>🛡️ Aman &amp; Terpercaya</span>
-            <span>📦 Produk Berkualitas</span>
-            <span>💳 Pembayaran Aman</span>
-            <span>🚚 Gratis Ongkir</span>
+            <span><i class="fas fa-shield-halved mr-1.5"></i>Aman &amp; Terpercaya</span>
+            <span><i class="fas fa-award mr-1.5"></i>Produk Berkualitas</span>
+            <span><i class="fas fa-credit-card mr-1.5"></i>Pembayaran Aman</span>
+            <span><i class="fas fa-truck mr-1.5"></i>Gratis Ongkir</span>
         </div>
         <div class="text-center text-xs text-white/70 pb-4">
             &copy; {{ date('Y') }} DECORA — Furniture &amp; Dekorasi Rumah
