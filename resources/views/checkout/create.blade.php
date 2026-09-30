@@ -39,7 +39,7 @@
                 <div class="lg:col-span-2 space-y-6">
 
                     <div class="bg-white rounded-xl border border-decora-cream-dark p-5">
-                        <p class="font-semibold text-decora-text mb-4">Alamat Pengiriman</p>
+                        <p class="font-semibold text-decora-text mb-4">Alamat</p>
 
                         <div class="mb-4">
                             <x-input-label value="Alamat Lengkap" />

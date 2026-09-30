@@ -10,7 +10,7 @@
 <body class="bg-decora-cream font-sans text-decora-text">
     <div class="flex h-screen overflow-hidden">
 
-        {{-- Sidebar --}}
+        {{-- Sidebar (fixed, tidak ikut scroll) --}}
         <aside class="w-60 bg-decora-brown text-white flex flex-col shrink-0 overflow-y-auto">
             <div class="h-16 flex items-center justify-center border-b border-white/10 font-bold text-lg tracking-wide shrink-0">
                 DECORA
@@ -48,9 +48,6 @@
                         {{ strtoupper(substr(auth()->guard('admin')->user()->nama ?? 'A', 0, 1)) }}
                     </div>
                     <span class="text-sm font-medium">{{ auth()->guard('admin')->user()->nama ?? 'Admin' }}</span>
-                    <a href="{{ route('admin.akun.edit', auth()->guard('admin')->id()) }}" class="text-sm text-decora-brown font-medium hover:underline ml-2">
-                        Edit Profil
-                    </a>
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
                         <button class="text-sm text-red-600 font-medium ml-2">Logout</button>

@@ -18,8 +18,8 @@
                     <i class="fas fa-map-marker-alt"></i>
                 </div>
                 <h3 class="font-bold text-decora-text mb-2">Alamat</h3>
-                <p class="text-sm text-decora-text/60 mb-4">Jl. Melati No. 12, Purbalingga, Jawa Tengah</p>
-                <a href="https://maps.google.com/?q=Purbalingga,+Jawa+Tengah" target="_blank" rel="noopener"
+                <p class="text-sm text-decora-text/60 mb-4">Jl. Jenggul Wangi, Karangreja, Jawa Tengah</p>
+                <a href="https://maps.google.com/?q=Jl.+Jenggul+Wangi,+Karangreja,+Jawa+Tengah" target="_blank" rel="noopener"
                    class="inline-flex items-center gap-2 text-sm font-medium text-decora-brown hover:gap-3 transition-all">
                     <span>Buka di Google Maps</span>
                     <i class="fas fa-arrow-right text-xs"></i>
@@ -74,13 +74,13 @@
             </h2>
             <div class="rounded-3xl overflow-hidden shadow-lg border border-decora-cream-dark">
                 <iframe
-                    src="https://www.google.com/maps?q=Purbalingga,+Jawa+Tengah&output=embed"
+                    src="https://www.google.com/maps?q=Jl.+Jenggul+Wangi,+Karangreja,+Jawa+Tengah&output=embed"
                     width="100%" height="420" style="border:0;" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
             <p class="text-center text-sm text-decora-text/50 mt-3">
-                <i class="fas fa-map-pin mr-1"></i> Jl. Melati No. 12, Purbalingga, Jawa Tengah
+                <i class="fas fa-map-pin mr-1"></i> Jl. Jenggul Wangi, Karangreja, Jawa Tengah
             </p>
         </div>
 

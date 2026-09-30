@@ -100,7 +100,7 @@
             <span>🚚 Gratis Ongkir</span>
         </div>
         <div class="text-center text-xs text-white/70 pb-4">
-            &copy; {{ date('Y') }} DECORA — Furniture &amp; Dekorasi Rumah
+            &copy; {{ date('Y') }} DECORA  Furniture &amp; Dekorasi Rumah
         </div>
     </footer>
 

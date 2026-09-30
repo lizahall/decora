@@ -6,6 +6,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <div class="mb-6">
+        <h1 class="text-xl font-bold text-decora-text">Dashboard</h1>
+        <p class="text-sm text-decora-text/60 mt-1">
+            Selamat datang, <span class="font-semibold text-decora-text">{{ auth()->guard('admin')->user()->nama }}</span>. Gunakan menu di samping untuk mengelola data DECORA.
+        </p>
+    </div>
+
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div class="bg-white border border-decora-cream-dark rounded-xl p-5">
             <p class="text-sm text-decora-text/50 mb-1">Total Produk</p>
@@ -21,15 +28,11 @@
         </div>
     </div>
 
-    <div class="bg-white border border-decora-cream-dark rounded-xl p-5 mb-6">
+    <div class="bg-white border border-decora-cream-dark rounded-xl p-5">
         <p class="font-semibold text-decora-text mb-4">Grafik Penjualan (7 Hari Terakhir)</p>
         <div class="h-64">
             <canvas id="chartPenjualan"></canvas>
         </div>
-    </div>
-
-    <div class="bg-white border border-decora-cream-dark rounded-xl p-5">
-        <p class="text-decora-text/70">Selamat datang, <span class="font-semibold text-decora-text">{{ auth()->guard('admin')->user()->nama }}</span>. Gunakan menu di samping untuk mengelola data DECORA.</p>
     </div>
 
     <script>
